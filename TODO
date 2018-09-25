@@ -1,0 +1,19 @@
+Jonathan:
+  Terraingen überarbeiten:
+    - prozeduierlich
+    - tesselation fähig (versch. Genauigkeiten)
+    - Normals mitgenerieren
+    - Texpoints mitgenerieren
+  Modelloader schreiben:
+    - lädt .tem Models
+    
+    
+Finn:
+  Engine umstrukturieren:
+    - neues filesystem
+    - Spielprojekt in Engine solution hinzufügen
+  Texturenladen optimiren:
+    - schnelleres bzw. leistungsfähigeres Lademodell
+    - Texturen in DX11-Formaten komprimiert abspeichern
+  Skybox hinzufügen:
+    - skybox
