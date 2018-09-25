@@ -48,9 +48,12 @@
     <ClInclude Include="TEEngine.hpp" />
     <ClInclude Include="TEGlobal.hpp" />
     <ClInclude Include="TEGraphics.hpp" />
-    <ClInclude Include="TEMLoader.hpp" />
     <ClInclude Include="TEObject.hpp" />
     <ClInclude Include="Timer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

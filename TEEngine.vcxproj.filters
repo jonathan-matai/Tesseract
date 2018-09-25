@@ -86,8 +86,9 @@
     <ClInclude Include="TECamera.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="TEMLoader.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>
