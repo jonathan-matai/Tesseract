@@ -9,9 +9,6 @@ Jonathan:
     
     
 Finn:
-  Engine umstrukturieren:
-    - neues filesystem
-    - Spielprojekt in Engine solution hinzufügen
   Texturenladen optimiren:
     - schnelleres bzw. leistungsfähigeres Lademodell
     - Texturen in DX11-Formaten komprimiert abspeichern
