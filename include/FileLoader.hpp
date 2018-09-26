@@ -1,0 +1,77 @@
+//	Diese Datei ist Teil der Tesseract-Engine
+//	Phoenix (c) 2017
+//	 ___________________           ____________
+//	|_______    ________|         |    ________|
+//			|  |				  |   |
+//			|  |				  |   |
+//			|  |	 _________    |   |_____
+//			|  |	/	____  \   |    _____|
+//			|  |	|  |____|  |  |   | 
+//			|  |	|   _______|  |   |
+//			|  |	|  |_______   |   |________ 
+//			|__|	\_________/   |____________|
+//			
+
+#pragma once
+
+#include <Windows.h>
+#include <string>
+#include <sstream>
+
+namespace FileLoader
+{
+	//Lädt einen String aus der angegebenen Sektion der Inidatei
+	static std::string teLoadIniString(wchar_t * section, wchar_t* key, wchar_t*file)
+	{
+		wchar_t out[265];
+		DWORD buffer = ARRAYSIZE(out);
+		GetPrivateProfileString(section, key, L"NOT FOUND", out, buffer, file);
+
+		if (out != L"NOT FOUND")
+		{
+			std::wstring wos(out);
+
+			std::string os(wos.begin(), wos.end());
+
+			return os;
+		}
+
+		return "NOT FOUND";
+	}
+
+	//Lädt einen Bool aus der angegebenen Sektion der Inidatei
+	static bool teLoadIniBool(wchar_t*section, wchar_t*key, wchar_t*file)
+	{
+		bool b = false;
+		std::istringstream(teLoadIniString(section, key, file)) >> std::boolalpha >> b;
+		return b;
+	}
+
+	//Lädt einen Integer aus der angegebenen Sektion der Inidatei
+	static int teLoadIniInt(wchar_t * section, wchar_t* key, wchar_t*file)
+	{
+		return std::atoi(teLoadIniString(section, key, file).c_str());
+	}
+
+	//Lädt einen Float aus der angegebenen Sektion der Inidatei
+	static float teLoadIniFloat(wchar_t * section, wchar_t* key, wchar_t*file)
+	{
+		return (float)std::atof(teLoadIniString(section, key, file).c_str());
+	}
+
+	//Lädt einen Double aus der angegebenen Sektion der Inidatei
+	static double teLoadIniDouble(wchar_t * section, wchar_t* key, wchar_t*file)
+	{
+		return std::atof(teLoadIniString(section, key, file).c_str());
+	}
+
+	//Prüft ob die Datei existiert
+	static bool teFileExists(wchar_t*file)
+	{
+		return ((GetFileAttributes(file) == INVALID_FILE_ATTRIBUTES) ? false : true);
+	}
+
+	
+}
+
+using namespace FileLoader;
