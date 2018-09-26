@@ -557,7 +557,7 @@ HRESULT CreateDDSTextureFromFile( ID3D11Device* pDev, const WCHAR* szFileName, I
     hr = CreateTextureFromDDS( pDev, pHeader, pBitData, BitSize, ppSRV, bSRGB );
     SAFE_DELETE_ARRAY( pHeapData );
 
-#if defined(DEBUG) || defined(PROFILE)
+#if defined(_DEBUG) || defined(PROFILE)
     if ( *ppSRV )
     {
         CHAR strFileA[MAX_PATH];

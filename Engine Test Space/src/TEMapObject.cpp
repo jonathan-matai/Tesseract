@@ -121,6 +121,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 				XMFLOAT3 A, B, C;
 				XMVECTOR ab, ac;
 				XMFLOAT2 currentLoc(x, z);
+				XMFLOAT2 texcoord(0.0f, 0.0f);
 				XMFLOAT2 currentChunkCorners[4];
 				currentChunkCorners[0] = XMFLOAT2(currentColumn * m_map.widthChunk, currentLine * m_map.heightChunk);
 				currentChunkCorners[1] = XMFLOAT2((currentColumn + 1) * (m_map.widthChunk - 1), currentLine * m_map.heightChunk);
@@ -138,6 +139,8 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ac = vectorBetweenPoints(A, C);
 
 					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
+
+					texcoord = XMFLOAT2(0.0f, 0.0f);
 				}
 				else if (xmAreEqual(currentLoc, currentChunkCorners[1]))
 				{
@@ -168,6 +171,8 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ac = vectorBetweenPoints(A, C);
 
 					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
+
+					texcoord = XMFLOAT2(1.0f, 1.0f);
 				}
 				else if (A.x == xOffset)
 				{
@@ -301,7 +306,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 																				(float)m_scale.y * m_heightmap[x * m_height + z],
 																				(float)(z)),
 																				currentNormal,
-																				teBiomToTextureCoord(m_biommap[x*m_height +z])};
+																				texcoord};
 				currentVertex++;
 			}
 		}
@@ -344,7 +349,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 	float chunkPercentage = (loadedChunks / 100);
 	LOGFILE->printf(colors::TE_INFO, "Es wurden %d Chunks von 100 geladen. ( %f )", loadedChunks, chunkPercentage);
 
-	if (teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/textureatlas01.dds", &m_pSRVMap))
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/textureatlas01.dds", &m_pSRVMap))
 	{
 		LOGFILE->print(colors::TE_WARNING, "texture failed to load.");
 		return false;
@@ -509,7 +514,9 @@ void TEMap::render()
 {
 	UINT stride = sizeof(Vertex), offset = 0;
 
-	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_pSRVMap);
+	m_texTransform = XMMatrixScaling(800.0f, 800.0f, 0.0f);
+
+	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_pSRVMap, m_texTransform);
 
 	//Alle Chunks durchgehen; die zu Rendernden rendern
 	for (int chunkIterator = 0; chunkIterator < m_map.numChunks; ++chunkIterator)

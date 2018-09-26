@@ -66,4 +66,5 @@ class TEMap : public TEObject
 
 		LightMaterial m_material;
 		ID3D11ShaderResourceView * m_pSRVMap;
+		XMMATRIX m_texTransform;
 };
