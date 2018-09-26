@@ -17,6 +17,8 @@
 #include <Windows.h>
 #include <string>
 #include <sstream>
+#include "..\Engine Test Space\include\TerrainGenerator.hpp"
+#include "DDSTextureLoader.hpp"
 
 namespace FileLoader
 {
@@ -71,7 +73,25 @@ namespace FileLoader
 		return ((GetFileAttributes(file) == INVALID_FILE_ATTRIBUTES) ? false : true);
 	}
 
-	
+	static DirectX::XMFLOAT2 teBiomToTextureCoord(uint8_t biom)
+	{
+		switch (biom)
+		{
+			case OCEAN:
+			{
+				return XMFLOAT2(0.5f, 0.0f);
+			}
+			default:
+			{
+				return XMFLOAT2(0.0f, 0.0f);
+			}
+		}
+	}
+
+	static TEResult teLoadTextureFromFile(ID3D11Device * device, wchar_t * filename, ID3D11ShaderResourceView**srv)
+	{
+		CreateDDSTextureFromFile(device, filename, srv);
+	}
 }
 
 using namespace FileLoader;

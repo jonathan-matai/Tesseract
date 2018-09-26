@@ -56,7 +56,7 @@ class TEGraphics
 
 		//Setter
 		//void teSetWVPMatrix(XMMATRIX objectWorldMatrix) { XMMATRIX wvpm = objectWorldMatrix * m_pCamera->teGetViewMatrix()*m_pCamera->teGetProjectionMatrix(); m_pFXWVPM->SetMatrix(reinterpret_cast<float*>(&wvpm)); };
-		void teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat);
+		void teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, ID3D11ShaderResourceView * srv);
 		void teSetGeneralRenderStates(DirectionalLight sun);
 		void teSyncCameras(XMFLOAT3 pos) { m_pCamera->teSetCamPos(pos); };
 
@@ -93,6 +93,7 @@ class TEGraphics
 		ID3DX11Effect * m_pFX;
 		ID3DX11EffectMatrixVariable * m_pFXWVPM;
 		ID3DX11EffectMatrixVariable * m_pFXInvTranspose;
+		ID3DX11EffectMatrixVariable * m_pFXTexTransform;
 		ID3DX11EffectMatrixVariable * m_pFXWorld;
 		ID3DX11EffectVariable * m_pFXmat;
 		ID3DX11EffectVariable * m_pFXdirLight;
@@ -100,6 +101,7 @@ class TEGraphics
 		ID3DX11EffectVectorVariable * m_pFXcameraPos;
 		ID3D11InputLayout * m_pInputLayout;
 		ID3D11ShaderResourceView * m_pFontResourceView;
+		ID3DX11EffectShaderResourceVariable * m_pSRVariable;
 
 		D3D_FEATURE_LEVEL m_featureLevels[3] = { D3D_FEATURE_LEVEL_11_0,
 											    D3D_FEATURE_LEVEL_10_1,

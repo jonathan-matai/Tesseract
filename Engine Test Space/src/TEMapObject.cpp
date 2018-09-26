@@ -1,4 +1,4 @@
-#include "TEMapObject.hpp"
+#include "..\include\TEMapObject.hpp"
 
 teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Device * device)
 {
@@ -295,6 +295,8 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					XMStoreFloat3(&currentNormal, averageVector(XMLoadFloat3(&plane1), XMLoadFloat3(&plane2), XMLoadFloat3(&plane3), XMLoadFloat3(&plane4)));
 				}
+
+				GRAPHICS->teGetDevice()
 
 				m_map.chunks[chunkIterator].verticiesInChunk[currentVertex] = { XMFLOAT3(
 																				(float)(x),

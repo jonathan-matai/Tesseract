@@ -12,7 +12,7 @@
 //			|__|	\_________/   |____________|
 //			
 
-#include "Timer.hpp"
+#include "..\include\Timer.hpp"
 #include <Windows.h>
 
 Timer::Timer()

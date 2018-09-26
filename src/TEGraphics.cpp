@@ -13,7 +13,7 @@
 //			
 
 //Includes
-#include "TEGraphics.hpp"
+#include "..\include\TEGraphics.hpp"
 
 teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 {
@@ -21,7 +21,7 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 	m_iniFile = iniFile;
 	m_usedFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
 	m_shaderFile = shaderFile;
-	m_techniqueName = "ColorTechniqueSolid";
+	m_techniqueName = "LightTech";
 
 	//Deviceflags setzen
 	UINT deviceFlags = NULL;
@@ -189,13 +189,15 @@ teResult TEGraphics::teExit()
 	return true;
 }
 
-void TEGraphics::teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat)
+void TEGraphics::teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, ID3D11ShaderResourceView * srv)
 {
 	XMMATRIX wvpm = objectWorldMatrix * m_pCamera->teGetViewMatrix()*m_pCamera->teGetProjectionMatrix();
 	m_pFXWVPM->SetMatrix(reinterpret_cast<float*>(&wvpm));
 	m_pFXInvTranspose->SetMatrix(reinterpret_cast<float*>(&inverseTranspose(objectWorldMatrix)));
 	m_pFXWorld->SetMatrix(reinterpret_cast<float*>(&objectWorldMatrix));
 	m_pFXmat->SetRawValue(&objectMat, 0, sizeof(LightMaterial));
+	m_pSRVariable->SetResource(srv);
+	m_pFXTexTransform->SetMatrix(reinterpret_cast<float*>(&XMMatrixIdentity()));
 }
 
 void TEGraphics::teSetGeneralRenderStates(DirectionalLight sun)
@@ -421,7 +423,7 @@ void TEGraphics::teSetRenderMode(short rendermode)
 			case 1:
 			{
 				m_pImmidiateContext->RSSetState(m_pRasterizerStateWireframe);
-				teSetShader("ColorTechniqueWireframe");
+				teSetShader("LightTechWire");
 				m_usedRenderMode = rendermode;
 				return;
 			}
@@ -470,6 +472,10 @@ teResult TEGraphics::teCreateShader()
 
 	m_pFXWorld = m_pFX->GetVariableByName("gWorld")->AsMatrix();
 
+	m_pSRVariable = m_pFX->GetVariableByName("gDiffuseMap")->AsShaderResource();
+
+	m_pFXTexTransform = m_pFX->GetVariableByName("gTexTransform")->AsMatrix();
+
 	return true;
 }
 
@@ -505,7 +511,8 @@ teResult TEGraphics::teDrawString(char * message, int x, int y)
 teResult TEGraphics::teCreateInputLayout()
 {
 	D3D11_INPUT_ELEMENT_DESC vertexDesc[] = { { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(XMFLOAT3), D3D11_INPUT_PER_VERTEX_DATA, 0 } };
+											  { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(XMFLOAT3), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+											  { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, sizeof(XMFLOAT3) * 2, D3D11_INPUT_PER_VERTEX_DATA, 0} };
 
 	D3DX11_PASS_DESC passDesc;
 	m_pFXTechnique->GetPassByIndex(0)->GetDesc(&passDesc);

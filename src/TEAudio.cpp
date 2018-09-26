@@ -1,4 +1,4 @@
-#include "TEAudio.hpp"
+#include "..\include\TEAudio.hpp"
 
 TEAudio::TEAudio()
 {

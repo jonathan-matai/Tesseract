@@ -1,8 +1,8 @@
 #pragma once
 
 //Includes
-#include <Vampire.hpp>
-#include <TEEngine.hpp>
+#include "G:\C++\Phoenix\Vampire\Vampire\Vampire.hpp"
+#include "G:\C++\Phoenix\Tesseract\TEEngine\include\TEEngine.hpp"
 
 //Defines
 #define GRAPHICS (ENGINE->teGetGraphics())

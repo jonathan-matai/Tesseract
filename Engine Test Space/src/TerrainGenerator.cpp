@@ -1,4 +1,4 @@
-#include "TerrainGenerator.hpp"
+#include "..\include\TerrainGenerator.hpp"
 
 TerrainGenerator::TerrainGenerator()
 {

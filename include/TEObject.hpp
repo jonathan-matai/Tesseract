@@ -15,7 +15,9 @@
 #pragma once
 
 //Includes
-#include "TEGlobal.hpp"
+#include "G:\C++\Phoenix\Tesseract\TEEngine\include\TEGlobal.hpp"
+
+using namespace DirectX;
 
 //Typ des Objekts
 typedef enum TE_OBJECT_TYPE {TE_OBJECT_TYPE_PLAYER, 

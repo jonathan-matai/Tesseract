@@ -13,7 +13,7 @@
 //			
 
 //Includes
-#include "TECamera.hpp"
+#include "..\include\TECamera.hpp"
 
 teResult TECamera::teInit()
 {

@@ -23,6 +23,8 @@
     <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\DDS.hpp" />
+    <ClInclude Include="..\include\DDSTextureLoader.hpp" />
     <ClInclude Include="..\include\FileLoader.hpp" />
     <ClInclude Include="..\include\Language.hpp" />
     <ClInclude Include="..\include\Logfile.hpp" />
@@ -38,6 +40,7 @@
     <ClInclude Include="..\include\Timer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\DDSTextureLoader.cpp" />
     <ClCompile Include="..\src\Language.cpp" />
     <ClCompile Include="..\src\Logfile.cpp" />
     <ClCompile Include="..\src\MathHelper.cpp" />
@@ -110,14 +113,14 @@
     <TargetName>TE64D</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
-    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\lib</OutDir>
+    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\lib\</OutDir>
     <IntDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>TE64</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
-    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\lib</OutDir>
+    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\lib\</OutDir>
     <IntDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

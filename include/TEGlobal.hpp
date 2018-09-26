@@ -126,6 +126,7 @@ typedef struct Vertex
 {
 	XMFLOAT3 pos;
 	XMFLOAT3 normal;
+	XMFLOAT2 texcoord;
 }Vertex;
 
 //globale materialstruktur, zur lichtsimulation

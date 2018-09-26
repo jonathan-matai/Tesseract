@@ -12,7 +12,7 @@
 //			|__|	\_________/   |____________|
 //			
 
-#include "MathHelper.hpp"
+#include "..\include\MathHelper.hpp"
 
 float MathHelper::linearInterpolation(float x_a, float y_a, float x_b, float y_b, float x_i)
 {

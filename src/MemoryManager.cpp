@@ -12,7 +12,7 @@
 //			|__|	\_________/   |____________|
 //			
 
-#include "MemoryManager.hpp"
+#include "..\include\MemoryManager.hpp"
 
 struct teMemoryEntry
 {

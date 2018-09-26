@@ -13,7 +13,7 @@
 //			
 
 //Inlcudes
-#include "TEObject.hpp"
+#include "..\include\TEObject.hpp"
 
 TEObject::TEObject(TE_OBJECT_DESC & init) : m_ID(init.type), m_subID(init.subType)
 {
