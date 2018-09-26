@@ -165,7 +165,7 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 		return false;
 	}
 
-	D3D11_SHADER_RESOURCE_VIEW_DESC rvd;
+	//D3D11_SHADER_RESOURCE_VIEW_DESC rvd;
 
 	m_pDevice->CreateShaderResourceView(NULL, NULL, &m_pFontResourceView);
 

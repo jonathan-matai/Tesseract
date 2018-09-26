@@ -2,10 +2,10 @@
 #include <iostream>
 
 #include "Logfile.hpp"
-#include "GameState.hpp"
+#include "..\include\GameState.hpp"
 #include "MemoryManager.hpp"
 #include "Language.hpp"
-#include "GameGlobal.hpp"
+#include "..\include\GameGlobal.hpp"
 
 void update(float deltatime);
 void render();
@@ -20,15 +20,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pcLine, i
 	TE_INIT init;
 
 	init.hInstance = hInstance;
-	init.iniFile = L"Data//TEConfig.ini";
-	init.shaderFiles = L"Data//Shader//DefaultEffects.fx";
+	init.iniFile = L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/TEConfig.ini";
+	init.shaderFiles = L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Shader/DefaultEffects.fx";
 	init.windowName = L"Oneiro Alpha";
 
 	ENGINE->teInit(init, WndProc);
 
 	// State erstellen und setzen
 	curState = new GameState();
-	static_cast<GameState*>(curState)->init("Data//Meshes//Map//");
+	static_cast<GameState*>(curState)->init("G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Meshes/Map/");
 
 	TE_OBJECT_DESC playerdesc;
 	ZeroMemory(&playerdesc, sizeof(TE_OBJECT_DESC));
@@ -41,8 +41,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pcLine, i
 
 	TE_OBJECT_DESC objectdesc;
 
-	objectdesc.file1 = L"Data//Meshes//Map//thmap.thm";
-	objectdesc.file2 = L"Data//Meshes//Map//tbmap.tbm";
+	objectdesc.file1 = L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Meshes/Map/thmap.thm";
+	objectdesc.file2 = L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Meshes/Map/tbmap.tbm";
 	objectdesc.pos = { 0.0f, 0.0f, 0.0f };
 	objectdesc.scale = { 1.0f, 1.0f, 1.0f };
 	objectdesc.type = TE_OBJECT_TYPE_MAP;

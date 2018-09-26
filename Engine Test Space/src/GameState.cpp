@@ -1,4 +1,4 @@
-#include "GameState.hpp"
+#include "..\include\GameState.hpp"
 
 GameState::GameState()
 {

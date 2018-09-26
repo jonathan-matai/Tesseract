@@ -31,7 +31,10 @@
     <ClInclude Include="..\include\MathHelper.hpp" />
     <ClInclude Include="..\include\MemoryManager.hpp" />
     <ClInclude Include="..\include\Singleton.hpp" />
-    <ClInclude Include="..\include\TEAudio.hpp" />
+    <ClInclude Include="..\include\TEAudio.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\include\TECamera.hpp" />
     <ClInclude Include="..\include\TEEngine.hpp" />
     <ClInclude Include="..\include\TEGlobal.hpp" />
@@ -45,7 +48,10 @@
     <ClCompile Include="..\src\Logfile.cpp" />
     <ClCompile Include="..\src\MathHelper.cpp" />
     <ClCompile Include="..\src\MemoryManager.cpp" />
-    <ClCompile Include="..\src\TEAudio.cpp" />
+    <ClCompile Include="..\src\TEAudio.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\TECamera.cpp" />
     <ClCompile Include="..\src\TEEngine.cpp" />
     <ClCompile Include="..\src\TEGraphics.cpp" />

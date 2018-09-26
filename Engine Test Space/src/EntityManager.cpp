@@ -1,4 +1,4 @@
-#include "EntityManager.hpp"
+#include "..\include\EntityManager.hpp"
 
 EntityManager::EntityManager(const char* path)
 {

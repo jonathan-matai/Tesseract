@@ -1,4 +1,4 @@
-#include "Pathfinding.hpp"
+#include "..\include\Pathfinding.hpp"
 
 void Pathfinding::Algorithm::findPath(std::vector<XMFLOAT2>* path, XMFLOAT2 start, XMFLOAT2 end)
 {

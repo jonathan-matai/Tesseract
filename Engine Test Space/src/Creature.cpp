@@ -1,4 +1,4 @@
-#include "Creature.hpp"
+#include "..\include\Creature.hpp"
 
 Creature::Creature(TE_OBJECT_DESC & init) : TEObject(init)
 {

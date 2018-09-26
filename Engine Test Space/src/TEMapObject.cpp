@@ -137,7 +137,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
 				}
 				else if (xmAreEqual(currentLoc, currentChunkCorners[1]))
 				{
@@ -147,7 +147,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
 				}
 				else if (xmAreEqual(currentLoc, currentChunkCorners[2]))
 				{
@@ -157,7 +157,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
 				}
 				else if(xmAreEqual(currentLoc, currentChunkCorners[3]))
 				{
@@ -167,7 +167,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
 				}
 				else if (A.x == xOffset)
 				{
@@ -179,7 +179,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					XMFLOAT3 plane1, plane2;
 
-					XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					C = B;
 					B = XMFLOAT3(((float)(x)) + 1.0f, (float)m_scale.y * m_heightmap[(x + 1)* m_height + z + 1], ((float)(z)) + 1.0f);
@@ -187,9 +187,9 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
-					XMStoreFloat3(&currentNormal, averageVector(XMLoadFloat3(&plane1), XMLoadFloat3(&plane2)));
+					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2)));
 				}
 				else if (A.x == (xOffset + m_map.widthChunk - 1))
 				{
@@ -201,7 +201,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					XMFLOAT3 plane1, plane2;
 
-					XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					B = C;
 					C = XMFLOAT3(((float)(x)), (float)m_scale.y * m_heightmap[(x)* m_height + z + 1], ((float)(z)) + 1.0f);
@@ -209,9 +209,9 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
-					XMStoreFloat3(&currentNormal, averageVector(XMLoadFloat3(&plane1), XMLoadFloat3(&plane2)));
+					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2)));
 				}
 				else if (A.z == zOffset)
 				{
@@ -223,7 +223,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					XMFLOAT3 plane1, plane2;
 
-					XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					B = XMFLOAT3(((float)(x)) - 1.0f, (float)m_scale.y * m_heightmap[(x - 1)* m_height + z], ((float)(z)));
 					C = XMFLOAT3(((float)(x)), (float)m_scale.y * m_heightmap[(x)* m_height + z + 1], ((float)(z)) + 1.0f);
@@ -231,9 +231,9 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
-					XMStoreFloat3(&currentNormal, averageVector(XMLoadFloat3(&plane1), XMLoadFloat3(&plane2)));
+					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2)));
 				}
 				else if (A.z == (zOffset + m_map.heightChunk - 1))
 				{
@@ -245,7 +245,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					XMFLOAT3 plane1, plane2;
 
-					XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					B = XMFLOAT3(((float)(x)) + 1.0f, (float)m_scale.y * m_heightmap[(x + 1)* m_height + z], ((float)(z)));
 					C = XMFLOAT3(((float)(x)), (float)m_scale.y * m_heightmap[(x)* m_height + z - 1], ((float)(z)) - 1.0f);
@@ -253,9 +253,9 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
-					XMStoreFloat3(&currentNormal, averageVector(XMLoadFloat3(&plane1), XMLoadFloat3(&plane2)));
+					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2)));
 				}
 				else
 				{
@@ -267,7 +267,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					XMFLOAT3 plane1, plane2, plane3, plane4;
 
-					XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane1, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					B = C;
 					C = XMFLOAT3(((float)(x)), (float)m_scale.y * m_heightmap[(x)* m_height + z + 1], ((float)(z)) + 1.0f);
@@ -275,7 +275,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane2, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					B = C;
 					C = XMFLOAT3(((float)(x)) + 1.0f, (float)m_scale.y * m_heightmap[(x + 1)* m_height + z + 1], ((float)(z)) + 1.0f);
@@ -283,7 +283,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane3, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane3, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
 					B = XMFLOAT3(((float)(x)) + 1.0f, (float)m_scale.y * m_heightmap[(x + 1)* m_height + z], ((float)(z)));
 					C = XMFLOAT3(((float)(x)), (float)m_scale.y * m_heightmap[(x)* m_height + z - 1], ((float)(z)) - 1.0f);
@@ -291,18 +291,17 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ab = vectorBetweenPoints(A, B);
 					ac = vectorBetweenPoints(A, C);
 
-					XMStoreFloat3(&plane4, XMVector3Normalize(XMVector3Cross(ab, ac)));
+					DirectX::XMStoreFloat3(&plane4, XMVector3Normalize(XMVector3Cross(ab, ac)));
 
-					XMStoreFloat3(&currentNormal, averageVector(XMLoadFloat3(&plane1), XMLoadFloat3(&plane2), XMLoadFloat3(&plane3), XMLoadFloat3(&plane4)));
+					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2), DirectX::XMLoadFloat3(&plane3), DirectX::XMLoadFloat3(&plane4)));
 				}
-
-				GRAPHICS->teGetDevice()
 
 				m_map.chunks[chunkIterator].verticiesInChunk[currentVertex] = { XMFLOAT3(
 																				(float)(x),
 																				(float)m_scale.y * m_heightmap[x * m_height + z],
 																				(float)(z)),
-																				currentNormal };
+																				currentNormal,
+																				teBiomToTextureCoord(m_biommap[x*m_height +z])};
 				currentVertex++;
 			}
 		}
@@ -344,6 +343,12 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 	float chunkPercentage = (loadedChunks / 100);
 	LOGFILE->printf(colors::TE_INFO, "Es wurden %d Chunks von 100 geladen. ( %f )", loadedChunks, chunkPercentage);
+
+	if (teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/textureatlas01.dds", &m_pSRVMap))
+	{
+		LOGFILE->print(colors::TE_WARNING, "texture failed to load.");
+		return false;
+	}
 
 	return true;
 }
@@ -398,7 +403,7 @@ teResult TEMap::teUpdateChunks(QUICK_CAM & cam, vBox frustum)
 
 	//Position des Spielers
 	XMFLOAT3 pos;
-	XMStoreFloat3(&pos, cam.pos);
+	DirectX::XMStoreFloat3(&pos, cam.pos);
 
 	//Variablen zur Unterteilung der Map
 	//Das Chunkoffset festlegen, also wann ein neuer Chunk anfängt
@@ -504,7 +509,7 @@ void TEMap::render()
 {
 	UINT stride = sizeof(Vertex), offset = 0;
 
-	GRAPHICS->teSetObjectRenderStates(m_world, m_material);
+	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_pSRVMap);
 
 	//Alle Chunks durchgehen; die zu Rendernden rendern
 	for (int chunkIterator = 0; chunkIterator < m_map.numChunks; ++chunkIterator)
