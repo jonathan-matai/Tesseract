@@ -491,7 +491,7 @@ TEMap::TEMap(TE_OBJECT_DESC & init) : TEObject(init)
 	}
 
 	m_material.ambient = XMFLOAT4(0.0f, 0.23f, 0.77f, 1.0f);
-	m_material.diffuse = XMFLOAT4(0.0f, 0.23f, 0.77f, 1.0f);
+	m_material.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
 	m_material.specular = XMFLOAT4(0.0f, 0.23f, 0.77f, 16.0f);
 
 	LOGFILE->print(colors::TE_CONSTRUCTION, "Die Map wurde erfolgreich erstellt.");
