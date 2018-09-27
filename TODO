@@ -9,8 +9,7 @@ Jonathan:
     
     
 Finn:
-  Texturenladen optimiren:
-    - schnelleres bzw. leistungsfähigeres Lademodell
-    - Texturen in DX11-Formaten komprimiert abspeichern
+  Texturen:
+    - Probleme mit den Koordinaten fixen
   Skybox hinzufügen:
     - skybox
