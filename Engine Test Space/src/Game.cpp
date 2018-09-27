@@ -107,6 +107,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					GRAPHICS->teGetCamera()->teRotateY(0.5f);
 				}break;
+				case 0x09:
+				{
+					GRAPHICS->teSetRenderMode(0);
+				}break;
+				case 0x10:
+				{
+					GRAPHICS->teSetRenderMode(1);
+				}break;
 			}
 		}
 	}

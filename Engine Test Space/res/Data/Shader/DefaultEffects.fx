@@ -244,7 +244,7 @@ float4 PS(VertexOut In) : SV_Target
 
     float4 litColor = texcol * (ambient + diffuse) + specular;
 
-    litColor.a = gMaterial.diffuse.a;
+    litColor.a = gMaterial.diffuse.a * texcol.a;
 
     return litColor;
 }

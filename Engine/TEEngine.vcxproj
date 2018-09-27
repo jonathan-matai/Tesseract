@@ -26,6 +26,7 @@
     <ClInclude Include="..\include\DDS.hpp" />
     <ClInclude Include="..\include\DDSTextureLoader.hpp" />
     <ClInclude Include="..\include\FileLoader.hpp" />
+    <ClInclude Include="..\include\TEInputManager.hpp" />
     <ClInclude Include="..\include\Language.hpp" />
     <ClInclude Include="..\include\Logfile.hpp" />
     <ClInclude Include="..\include\MathHelper.hpp" />
@@ -55,6 +56,7 @@
     <ClCompile Include="..\src\TECamera.cpp" />
     <ClCompile Include="..\src\TEEngine.cpp" />
     <ClCompile Include="..\src\TEGraphics.cpp" />
+    <ClCompile Include="..\src\TEInputManager.cpp" />
     <ClCompile Include="..\src\TEObject.cpp" />
     <ClCompile Include="..\src\Timer.cpp" />
   </ItemGroup>

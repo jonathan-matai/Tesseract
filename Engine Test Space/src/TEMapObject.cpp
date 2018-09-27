@@ -81,6 +81,8 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 	//Der aktuelle Chunk
 	UINT loadedChunks = 0, chunksToLoad = 0;
 	UINT currentIndex = 0, currentVertex = 0;
+	float texCdu = 1.0f / ((float)m_width);
+	float texCdv = 1.0f / ((float)m_height);
 
 	//Die map in chunks unterteilen
 	m_map.widthChunk = m_width / chunksPerColumn;
@@ -139,8 +141,6 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ac = vectorBetweenPoints(A, C);
 
 					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
-
-					texcoord = XMFLOAT2(0.0f, 0.0f);
 				}
 				else if (xmAreEqual(currentLoc, currentChunkCorners[1]))
 				{
@@ -171,8 +171,6 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					ac = vectorBetweenPoints(A, C);
 
 					DirectX::XMStoreFloat3(&currentNormal, XMVector3Normalize(XMVector3Cross(ab, ac)));
-
-					texcoord = XMFLOAT2(1.0f, 1.0f);
 				}
 				else if (A.x == xOffset)
 				{
@@ -300,6 +298,9 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 
 					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2), DirectX::XMLoadFloat3(&plane3), DirectX::XMLoadFloat3(&plane4)));
 				}
+
+				texcoord.x = 1.0f - (z * texCdu);
+				texcoord.y = 1.0f - (x * texCdv);
 
 				m_map.chunks[chunkIterator].verticiesInChunk[currentVertex] = { XMFLOAT3(
 																				(float)(x),
@@ -514,7 +515,7 @@ void TEMap::render()
 {
 	UINT stride = sizeof(Vertex), offset = 0;
 
-	m_texTransform = XMMatrixScaling(800.0f, 800.0f, 0.0f);
+	m_texTransform = XMMatrixScaling(8000.0f, 8000.0f, 0.0f);
 
 	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_pSRVMap, m_texTransform);
 
