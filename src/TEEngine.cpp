@@ -71,6 +71,19 @@ teResult teEngine::teInit(TE_INIT & init, WNDPROC wndProc)
 		return false;
 	}
 
+#if (_WIN32_WINNT >= 0x0A00 /*_WIN32_WINNT_WIN10*/)
+	HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+		// error
+#else
+	HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
+	if (FAILED(hr))
+		// error
+#endif
+
 	m_quickCam.pos = m_teGraphics->teGetCamera()->teGetCamPosXM();
 	m_quickCam.lookAt = m_teGraphics->teGetCamera()->teGetLookAtXM();
 	m_quickCam.right = m_teGraphics->teGetCamera()->teGetRightXM();

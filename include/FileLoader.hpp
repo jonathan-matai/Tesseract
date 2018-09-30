@@ -17,7 +17,7 @@
 #include <Windows.h>
 #include <string>
 #include <sstream>
-#include "DDSTextureLoader.hpp"
+#include "DirectXTex.hpp"
 
 namespace FileLoader
 {
@@ -97,7 +97,18 @@ namespace FileLoader
 
 	static bool teLoadTextureFromFile(ID3D11Device * device, wchar_t * filename, ID3D11ShaderResourceView**srv)
 	{
-		if (FAILED(CreateDDSTextureFromFile(device, filename, srv)))
+		DirectX::ScratchImage image;
+		ZeroMemory(&image, sizeof(DirectX::ScratchImage));
+
+		DirectX::TexMetadata texData;
+		ZeroMemory(&texData, sizeof(DirectX::TexMetadata));
+
+		if (FAILED(DirectX::LoadFromDDSFile(filename, NULL, &texData, image)))
+		{
+			return false;
+		}
+
+		if (FAILED(DirectX::CreateShaderResourceViewEx(device, image.GetImages(), image.GetImageCount(), texData, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_READ, NULL, false, srv)))
 		{
 			return false;
 		}

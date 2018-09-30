@@ -19,13 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\include\DirectXTex.inl" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\BC.hpp" />
+    <ClInclude Include="..\include\BCDirectCompute.hpp" />
     <ClInclude Include="..\include\DDS.hpp" />
-    <ClInclude Include="..\include\DDSTextureLoader.hpp" />
+    <ClInclude Include="..\include\DirectXTex.hpp" />
+    <ClInclude Include="..\include\DirectXTexP.hpp" />
     <ClInclude Include="..\include\FileLoader.hpp" />
+    <ClInclude Include="..\include\Filters.hpp" />
+    <ClInclude Include="..\include\scoped.hpp" />
     <ClInclude Include="..\include\TEInputManager.hpp" />
     <ClInclude Include="..\include\Language.hpp" />
     <ClInclude Include="..\include\Logfile.hpp" />
@@ -44,7 +50,25 @@
     <ClInclude Include="..\include\Timer.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\DDSTextureLoader.cpp" />
+    <ClCompile Include="..\src\BC.cpp" />
+    <ClCompile Include="..\src\BC4BC5.cpp" />
+    <ClCompile Include="..\src\BC6HBC7.cpp" />
+    <ClCompile Include="..\src\DirectXTexCompress.cpp" />
+    <ClCompile Include="..\src\DirectXTexCompressGPU.cpp" />
+    <ClCompile Include="..\src\DirectXTexConvert.cpp" />
+    <ClCompile Include="..\src\DirectXTexD3D11.cpp" />
+    <ClCompile Include="..\src\DirectXTexDDS.cpp" />
+    <ClCompile Include="..\src\DirectXTexFlipRotate.cpp" />
+    <ClCompile Include="..\src\DirectXTexHDR.cpp" />
+    <ClCompile Include="..\src\DirectXTexImage.cpp" />
+    <ClCompile Include="..\src\DirectXTexMipmaps.cpp" />
+    <ClCompile Include="..\src\DirectXTexMisc.cpp" />
+    <ClCompile Include="..\src\DirectXTexNormalMaps.cpp" />
+    <ClCompile Include="..\src\DirectXTexPMAlpha.cpp" />
+    <ClCompile Include="..\src\DirectXTexResize.cpp" />
+    <ClCompile Include="..\src\DirectXTexTGA.cpp" />
+    <ClCompile Include="..\src\DirectXTexUtil.cpp" />
+    <ClCompile Include="..\src\DirectXTexWIC.cpp" />
     <ClCompile Include="..\src\Language.cpp" />
     <ClCompile Include="..\src\Logfile.cpp" />
     <ClCompile Include="..\src\MathHelper.cpp" />

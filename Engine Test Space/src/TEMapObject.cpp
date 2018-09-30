@@ -16,7 +16,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 	}
 
 	//texture loading
-	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/grass02.dds", &m_pSRVgrass))
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/grass01.dds", &m_pSRVgrass))
 	{
 		LOGFILE->print(colors::TE_WARNING, "texture (grass) failed to load.");
 		return false;
