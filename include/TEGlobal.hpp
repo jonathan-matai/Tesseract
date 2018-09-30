@@ -109,8 +109,8 @@ static XMMATRIX inverseTranspose(CXMMATRIX matrix)
 }
 
 // Display-Einstellungen
-#define MAX_XRES (1980)
-#define MAX_MULTI_SAMPLE (4)
+constexpr uint32_t MAX_XRES = 1980;
+constexpr uint32_t MAX_MULTI_SAMPLE = 4;
 
 //Die Parameterstruktur, die ausgefüllt werden muss, um TE zu initialisieren
 typedef struct TE_INIT
