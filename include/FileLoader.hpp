@@ -80,9 +80,17 @@ namespace FileLoader
 			{
 				return DirectX::XMFLOAT2(0.5f, 0.0f);
 			}
-			default:
+			case 5:
 			{
 				return DirectX::XMFLOAT2(0.0f, 0.0f);
+			}
+			case 17:
+			{
+				return DirectX::XMFLOAT2(0.0f, 0.5f);
+			}
+			default:
+			{
+				return DirectX::XMFLOAT2(0.5f, 0.5f);
 			}
 		}
 	}

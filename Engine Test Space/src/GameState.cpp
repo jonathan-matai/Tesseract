@@ -8,7 +8,7 @@ GameState::GameState()
 	sun.ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
 	sun.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
 	sun.specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
-	sun.direction = XMFLOAT3(0.0f, -0.2f, 1.0f);
+	sun.direction = XMFLOAT3(0.0f, -0.4f, 1.0f);
 }
 
 GameState::~GameState()

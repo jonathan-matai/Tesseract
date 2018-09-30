@@ -15,6 +15,13 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 		return false;
 	}
 
+	//texture loading
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/grass02.dds", &m_pSRVgrass))
+	{
+		LOGFILE->print(colors::TE_WARNING, "texture (grass) failed to load.");
+		return false;
+	}
+
 	//AUS DER THM DATEI DIE HEIGHTMAP AUSLESEN
 	std::ifstream heightmapFile(ws.c_str(), std::ios::binary);
 	if (!heightmapFile.is_open())
@@ -299,8 +306,8 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 					DirectX::XMStoreFloat3(&currentNormal, averageVector(DirectX::XMLoadFloat3(&plane1), DirectX::XMLoadFloat3(&plane2), DirectX::XMLoadFloat3(&plane3), DirectX::XMLoadFloat3(&plane4)));
 				}
 
-				texcoord.x = 1.0f - (z * texCdu);
-				texcoord.y = 1.0f - (x * texCdv);
+				texcoord.x = (z * texCdu);
+				texcoord.y = (x * texCdv);
 
 				m_map.chunks[chunkIterator].verticiesInChunk[currentVertex] = { XMFLOAT3(
 																				(float)(x),
@@ -347,14 +354,26 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 		loadedChunks++;
 	}
 
-	float chunkPercentage = (loadedChunks / 100);
-	LOGFILE->printf(colors::TE_INFO, "Es wurden %d Chunks von 100 geladen. ( %f )", loadedChunks, chunkPercentage);
+	float chunkPercentage = (loadedChunks / m_map.numChunks) * 100;
+	LOGFILE->printf(colors::TE_INFO, "%d chunks of 100 loaded. ( %f %%)", loadedChunks, chunkPercentage);
 
-	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/textureatlas01.dds", &m_pSRVMap))
-	{
-		LOGFILE->print(colors::TE_WARNING, "texture failed to load.");
-		return false;
-	}
+	//if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/rock01.dds", &m_pSRVrock))
+	//{
+	//	LOGFILE->print(colors::TE_WARNING, "texture (rock) failed to load.");
+	//	return false;
+	//}
+	//
+	//if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/sand01.dds", &m_pSRVsand))
+	//{
+	//	LOGFILE->print(colors::TE_WARNING, "texture (sand) failed to load.");
+	//	return false;
+	//}
+	//
+	//if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"G:/C++/Phoenix/Tesseract/TEEngine/Engine Test Space/res/Data/Textures/map/notset.dds", &m_pSRVnotset))
+	//{
+	//	LOGFILE->print(colors::TE_WARNING, "texture (notset) failed to load.");
+	//	return false;
+	//}
 
 	return true;
 }
@@ -490,7 +509,7 @@ TEMap::TEMap(TE_OBJECT_DESC & init) : TEObject(init)
 		return;
 	}
 
-	m_material.ambient = XMFLOAT4(0.0f, 0.23f, 0.77f, 1.0f);
+	m_material.ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
 	m_material.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
 	m_material.specular = XMFLOAT4(0.0f, 0.23f, 0.77f, 16.0f);
 
@@ -517,7 +536,8 @@ void TEMap::render()
 
 	m_texTransform = XMMatrixScaling(8000.0f, 8000.0f, 0.0f);
 
-	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_pSRVMap, m_texTransform);
+	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_texTransform);
+	GRAPHICS->teSetObjectTexture(m_pSRVgrass);
 
 	//Alle Chunks durchgehen; die zu Rendernden rendern
 	for (int chunkIterator = 0; chunkIterator < m_map.numChunks; ++chunkIterator)

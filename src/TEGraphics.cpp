@@ -189,15 +189,19 @@ teResult TEGraphics::teExit()
 	return true;
 }
 
-void TEGraphics::teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, ID3D11ShaderResourceView * srv, XMMATRIX textransform)
+void TEGraphics::teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, XMMATRIX textransform)
 {
 	XMMATRIX wvpm = objectWorldMatrix * m_pCamera->teGetViewMatrix()*m_pCamera->teGetProjectionMatrix();
 	m_pFXWVPM->SetMatrix(reinterpret_cast<float*>(&wvpm));
 	m_pFXInvTranspose->SetMatrix(reinterpret_cast<float*>(&inverseTranspose(objectWorldMatrix)));
 	m_pFXWorld->SetMatrix(reinterpret_cast<float*>(&objectWorldMatrix));
 	m_pFXmat->SetRawValue(&objectMat, 0, sizeof(LightMaterial));
-	m_pSRVariable->SetResource(srv);
 	m_pFXTexTransform->SetMatrix(reinterpret_cast<float*>(&textransform));
+}
+
+void TEGraphics::teSetObjectTexture(ID3D11ShaderResourceView * tex)
+{
+	m_pSRVariable->SetResource(tex);
 }
 
 void TEGraphics::teSetGeneralRenderStates(DirectionalLight sun)

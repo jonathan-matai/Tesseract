@@ -56,7 +56,8 @@ class TEGraphics
 
 		//Setter
 		//void teSetWVPMatrix(XMMATRIX objectWorldMatrix) { XMMATRIX wvpm = objectWorldMatrix * m_pCamera->teGetViewMatrix()*m_pCamera->teGetProjectionMatrix(); m_pFXWVPM->SetMatrix(reinterpret_cast<float*>(&wvpm)); };
-		void teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, ID3D11ShaderResourceView * srv, XMMATRIX textransform);
+		void teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, XMMATRIX textransform);
+		void teSetObjectTexture(ID3D11ShaderResourceView * tex);
 		void teSetGeneralRenderStates(DirectionalLight sun);
 		void teSyncCameras(XMFLOAT3 pos) { m_pCamera->teSetCamPos(pos); };
 

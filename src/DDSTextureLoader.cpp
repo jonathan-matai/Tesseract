@@ -519,7 +519,7 @@ static HRESULT CreateTextureFromDDS( ID3D11Device* pDev, DDS_HEADER* pHeader, __
     hr = pDev->CreateTexture2D( &desc, pInitData, &pTex2D );
     if( SUCCEEDED( hr ) && pTex2D )
     {
-#if defined(DEBUG) || defined(PROFILE)
+#if defined(_DEBUG) || defined(PROFILE)
         pTex2D->SetPrivateData( WKPDID_D3DDebugObjectName, sizeof("DDSTextureLoader")-1, "DDSTextureLoader" );
 #endif
         D3D11_SHADER_RESOURCE_VIEW_DESC SRVDesc;

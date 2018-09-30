@@ -81,8 +81,8 @@ SamplerState anisotropicFilter
 {
     Filter = ANISOTROPIC;
     MaxAnisotropy = 4;
-    AddressU = MIRROR;
-    AddressV = MIRROR;
+    AddressU = WRAP;
+    AddressV = WRAP;
 };
 
 void ComputeDirectionalLight(Material mat, DirectionalLight L, float3 normal, float3 toEye, out float4 ambient, out float4 diffuse, out float4 spec)
