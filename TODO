@@ -10,6 +10,6 @@ Jonathan:
     
 Finn:
   Texturen:
-    - Probleme mit den Koordinaten fixen
+    - Blending & Terrainrendering verbessern
   Skybox hinzufügen:
     - skybox
