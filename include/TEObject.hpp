@@ -15,7 +15,7 @@
 #pragma once
 
 //Includes
-#include "G:\C++\Phoenix\Tesseract\TEEngine\include\TEGlobal.hpp"
+#include "TEGlobal.hpp"
 
 using namespace DirectX;
 

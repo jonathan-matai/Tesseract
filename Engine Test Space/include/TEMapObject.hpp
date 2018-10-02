@@ -71,6 +71,6 @@ class TEMap : public TEObject
 		teTerrain m_map;
 
 		LightMaterial m_material;
-		ID3D11ShaderResourceView * m_pSRVgrass/*, * m_pSRVrock, * m_pSRVsand, * m_pSRVnotset*/;
+		ID3D11ShaderResourceView * m_pSRVgrass, * m_pSRVrock, * m_pSRVsand, * m_pSRVnotset;
 		XMMATRIX m_texTransform;
 };
