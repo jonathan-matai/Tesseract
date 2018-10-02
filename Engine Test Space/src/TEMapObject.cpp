@@ -534,7 +534,7 @@ void TEMap::render()
 {
 	UINT stride = sizeof(Vertex), offset = 0;
 
-	m_texTransform = XMMatrixScaling(8000.0f, 8000.0f, 0.0f);
+	m_texTransform = XMMatrixScaling(800.0f, 800.0f, 0.0f);
 
 	GRAPHICS->teSetObjectRenderStates(m_world, m_material, m_texTransform);
 	GRAPHICS->teSetObjectTexture(m_pSRVgrass);
