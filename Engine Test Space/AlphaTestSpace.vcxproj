@@ -28,6 +28,7 @@
     <ClInclude Include="..\include\State.hpp" />
     <ClInclude Include="..\include\TEMapObject.hpp" />
     <ClInclude Include="..\include\TerrainGenerator.hpp" />
+    <ClInclude Include="include\Terrain.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Creature.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\TEMapObject.cpp" />
     <ClCompile Include="..\src\TerrainGenerator.cpp" />
+    <ClCompile Include="src\Terrain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
