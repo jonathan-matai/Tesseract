@@ -65,18 +65,6 @@ typedef bool teResult;
 #define TE_DEBUG
 #endif
 
-// Casting-Methode mit Runtime-Fehlerabfrage und -ausgabe
-template <class c, class d> c * te_cast(d* in) {
-	if (c* out = dynamic_cast<c*>(in))
-		return value;
-	else {
-		char msg[128];
-		sprintf_s(msg, "Cannot convert %s to %s!", typeid(d).name(), typeid(c).name());
-		TRACE(true, msg);
-	}
-	return NULL;
-}
-
 //char* in wchar_t* =========VORSICHT: Nach Aufruf muss die Vaiable wc wieder gelöscht werden: delete[] wc;=================
 static const wchar_t * teCharToWchar(const char * c)
 {
