@@ -103,6 +103,7 @@ class TEGraphics
 		ID3D11InputLayout * m_pInputLayout;
 		ID3D11ShaderResourceView * m_pFontResourceView;
 		ID3DX11EffectShaderResourceVariable * m_pSRVariable;
+		ID3D11BlendState * m_pBlendState;
 
 		D3D_FEATURE_LEVEL m_featureLevels[3] = { D3D_FEATURE_LEVEL_11_0,
 											    D3D_FEATURE_LEVEL_10_1,

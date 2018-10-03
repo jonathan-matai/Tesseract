@@ -167,7 +167,27 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 
 	//D3D11_SHADER_RESOURCE_VIEW_DESC rvd;
 
-	m_pDevice->CreateShaderResourceView(NULL, NULL, &m_pFontResourceView);
+	//m_pDevice->CreateShaderResourceView(NULL, NULL, &m_pFontResourceView);
+
+	//BlendState erstellen
+	D3D11_BLEND_DESC blenddesc;
+	blenddesc.AlphaToCoverageEnable = false;
+	blenddesc.IndependentBlendEnable = false;
+	blenddesc.RenderTarget[0].BlendEnable = true;
+	blenddesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	blenddesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blenddesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blenddesc.RenderTarget[0].DestBlend = D3D11_BLEND_SRC_COLOR;
+	blenddesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ZERO;
+	blenddesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_SRC_COLOR;
+	blenddesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+
+
+	m_pDevice->CreateBlendState(&blenddesc, &m_pBlendState);
+
+	DirectX::ScratchImage image;
+
+	//m_pImmidiateContext->OMSetBlendState(m_pBlendState, DirectX::LoadFromDDSFile(L"", NULL, NULL, NULL));
 
 	LOGFILE->print(colors::TE_SUCCEEDED, "DirectX 11 wurde erfolgreich initialisiert.");
 
