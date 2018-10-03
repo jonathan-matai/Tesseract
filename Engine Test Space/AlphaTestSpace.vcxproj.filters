@@ -15,57 +15,57 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Creature.hpp">
+    <ClInclude Include="include\Creature.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\EntityManager.hpp">
+    <ClInclude Include="include\EntityManager.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\GameGlobal.hpp">
+    <ClInclude Include="include\GameGlobal.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\GameState.hpp">
+    <ClInclude Include="include\GameState.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Pathfinding.hpp">
+    <ClInclude Include="include\Pathfinding.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Player.hpp">
+    <ClInclude Include="include\Player.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\State.hpp">
+    <ClInclude Include="include\State.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\TEMapObject.hpp">
+    <ClInclude Include="include\TEMapObject.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\TerrainGenerator.hpp">
+    <ClInclude Include="include\TerrainGenerator.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Creature.cpp">
+    <ClCompile Include="src\Creature.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\EntityManager.cpp">
+    <ClCompile Include="src\EntityManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Game.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\GameState.cpp">
+    <ClCompile Include="src\GameState.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Pathfinding.cpp">
+    <ClCompile Include="src\Pathfinding.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Player.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TEMapObject.cpp">
+    <ClCompile Include="src\TEMapObject.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TerrainGenerator.cpp">
+    <ClCompile Include="src\TerrainGenerator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

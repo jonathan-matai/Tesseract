@@ -16,7 +16,7 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 	}
 
 	//texture loading
-	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"../res/Data/Textures/map/grass02.dds", &m_pSRVgrass))
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"res/Data/Textures/map/grass02.dds", &m_pSRVgrass))
 	{
 		LOGFILE->print(colors::TE_WARNING, "texture (grass) failed to load.");
 		return false;
@@ -357,19 +357,19 @@ teResult TEMap::teLoadFromTHM(wchar_t * heightMap, wchar_t * biomMap, ID3D11Devi
 	float chunkPercentage = (loadedChunks / m_map.numChunks) * 100;
 	LOGFILE->printf(colors::TE_INFO, "%d chunks of 100 loaded. ( %f %%)", loadedChunks, chunkPercentage);
 
-	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"../res/Data/Textures/map/rock01.dds", &m_pSRVrock))
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"res/Data/Textures/map/rock01.dds", &m_pSRVrock))
 	{
 		LOGFILE->print(colors::TE_WARNING, "texture (rock) failed to load.");
 		return false;
 	}
 	
-	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"../res/Data/Textures/map/sand01.dds", &m_pSRVsand))
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"res/Data/Textures/map/sand01.dds", &m_pSRVsand))
 	{
 		LOGFILE->print(colors::TE_WARNING, "texture (sand) failed to load.");
 		return false;
 	}
 	
-	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"../res/Data/Textures/map/notset.dds", &m_pSRVnotset))
+	if (!teLoadTextureFromFile(GRAPHICS->teGetDevice(), L"res/Data/Textures/map/notset.dds", &m_pSRVnotset))
 	{
 		LOGFILE->print(colors::TE_WARNING, "texture (notset) failed to load.");
 		return false;

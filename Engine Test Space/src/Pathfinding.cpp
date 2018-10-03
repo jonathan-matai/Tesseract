@@ -45,13 +45,13 @@ void Pathfinding::Algorithm::findPath(std::vector<XMFLOAT2>* path, XMFLOAT2 star
 				if (!getListMember(m_child, openNodes, child.p)) { // Wenn Nachbar nicht geöffnet ist, öffnen
 					child.startDistance = newDist;
 					child.endDistance = getDistance(child.p, endNode);
-					child.parent = parent - closedNodes.begin();
+					child.parent = static_cast<UINT>(parent - closedNodes.begin());
 					openNodes.push_back(child);
 				}
 				else if (newDist < (*m_child).startDistance) { // Wenn Nachbar geöffnet ist prüfen, ob neue Distanz kürzer ist, wenn ja, Node updaten
 					(*m_child).startDistance = newDist;
 					(*m_child).endDistance = getDistance(child.p, endNode);
-					(*m_child).parent = parent - closedNodes.begin();
+					(*m_child).parent = static_cast<UINT>(parent - closedNodes.begin());
 				}
 			}
 	}

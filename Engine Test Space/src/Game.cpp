@@ -20,15 +20,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pcLine, i
 	TE_INIT init;
 
 	init.hInstance = hInstance;
-	init.iniFile = L"../res/Data/TEConfig.ini";
-	init.shaderFiles = L"../res/Data/Shader/DefaultEffects.fx";
+	init.iniFile = L"res/Data/TEConfig.ini";
+	init.shaderFiles = L"res/Data/Shader/DefaultEffects.fx";
 	init.windowName = L"Oneiro Alpha";
 
 	ENGINE->teInit(init, WndProc);
 
 	// State erstellen und setzen
 	curState = new GameState();
-	static_cast<GameState*>(curState)->init("../res/Data/Meshes/Map/");
+	static_cast<GameState*>(curState)->init("res/Data/Meshes/Map/");
 
 	TE_OBJECT_DESC playerdesc;
 	ZeroMemory(&playerdesc, sizeof(TE_OBJECT_DESC));
@@ -41,8 +41,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pcLine, i
 
 	TE_OBJECT_DESC objectdesc;
 
-	objectdesc.file1 = L"../res/Data/Meshes/Map/thmap.thm";
-	objectdesc.file2 = L"../res/Data/Meshes/Map/tbmap.tbm";
+	objectdesc.file1 = L"res/Data/Meshes/Map/thmap.thm";
+	objectdesc.file2 = L"res/Data/Meshes/Map/tbmap.tbm";
 	objectdesc.pos = { 0.0f, 0.0f, 0.0f };
 	objectdesc.scale = { 1.0f, 1.0f, 1.0f };
 	objectdesc.type = TE_OBJECT_TYPE_MAP;
