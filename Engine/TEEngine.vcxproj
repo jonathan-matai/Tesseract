@@ -92,13 +92,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -136,30 +136,34 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>G:\C++\Phoenix\Tesseract\x86\Debug\</OutDir>
-    <TargetName>TE86D</TargetName>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>Tesseract</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <TargetExt>.lib</TargetExt>
+    <IntDir>$(SolutionDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>TE64D</TargetName>
+    <TargetName>Tesseract</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
-    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\lib\</OutDir>
-    <IntDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine\x64\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>TE64</TargetName>
+    <TargetName>Tesseract</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
-    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\lib\</OutDir>
-    <IntDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine\x64\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>G:\C++\Phoenix\Tesseract\x86\Release\</OutDir>
-    <TargetName>TE86</TargetName>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>Tesseract</TargetName>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <TargetExt>.lib</TargetExt>
+    <IntDir>$(SolutionDir)bin\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
