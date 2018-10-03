@@ -125,7 +125,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11d.lib;TE86D.lib;Effects11d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11d.lib;TE86D.lib;Effects11d.lib;%(AdditionalDependencies);Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11d.lib;TE64D.lib;VaPhD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11d.lib;%(AdditionalDependencies);Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,7 +149,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Effects11.lib;D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11.lib;TE86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Effects11.lib;D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11.lib;TE86.lib;%(AdditionalDependencies);Tesseract.lib;Vampire.lib;Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +163,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11.lib;TE64.lib;VaPh.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11.lib;%(AdditionalDependencies);Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
