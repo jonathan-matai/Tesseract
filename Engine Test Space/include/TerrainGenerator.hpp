@@ -1,9 +1,9 @@
 #pragma once
 
 #include "EntityManager.hpp"
-#include "Logfile.hpp" // windows.h
-#include "MathHelper.hpp"
-#include "MemoryManager.hpp"
+#include "../../include/Logfile.hpp" // windows.h
+#include "../../include/MathHelper.hpp"
+#include "../../include/MemoryManager.hpp"
 #include <fstream>
 #include <thread>
 #include <vector>

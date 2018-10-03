@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 #include <DirectXMath.h>
-#include "Logfile.hpp"
+#include "../../include/Logfile.hpp"
 
 #define NPM 4
 

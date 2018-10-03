@@ -39,8 +39,6 @@ struct Vertex_3PNU
 	XMFLOAT2	uv;
 };
 
-#include <memory>
-
 template<typename t> bool cropArray2d(t* input, size_t width_input, size_t height_input, t* output, size_t x_start, size_t y_start, size_t x_end, size_t y_end, size_t outSize)
 {
 	size_t width_output = 1 + x_end - x_start;
