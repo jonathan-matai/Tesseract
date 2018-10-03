@@ -20,12 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\DirectXTex.inl" />
-    <None Include=".gitattributes" />
-    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BC.hpp" />
     <ClInclude Include="..\include\BCDirectCompute.hpp" />
+    <ClInclude Include="..\include\d3dx11effect.h" />
+    <ClInclude Include="..\include\d3dxGlobal.h" />
     <ClInclude Include="..\include\DDS.hpp" />
     <ClInclude Include="..\include\DirectXTex.hpp" />
     <ClInclude Include="..\include\DirectXTexP.hpp" />

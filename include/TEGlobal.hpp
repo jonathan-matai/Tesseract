@@ -25,8 +25,8 @@
 #include <X3DAudio.h>
 #include <DirectXMath.h>
 #include <dsound.h>
-#include <d3dx11effect.h>
-#include <d3dxGlobal.h>
+#include "d3dx11effect.h"
+#include "d3dxGlobal.h"
 //Windows-spezifische
 #include <Windows.h>
 #include <vector>

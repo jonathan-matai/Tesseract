@@ -15,8 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitattributes" />
-    <None Include=".gitignore" />
     <None Include="..\include\DirectXTex.inl">
       <Filter>Headerdateien</Filter>
     </None>
@@ -83,6 +81,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\include\scoped.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\d3dx11effect.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\d3dxGlobal.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
