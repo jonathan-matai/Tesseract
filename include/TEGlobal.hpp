@@ -25,8 +25,8 @@
 #include <X3DAudio.h>
 #include <DirectXMath.h>
 #include <dsound.h>
-#include <d3dx11effect.h>
-#include <d3dxGlobal.h>
+#include "d3dx11effect.h"
+#include "d3dxGlobal.h"
 //Windows-spezifische
 #include <Windows.h>
 #include <vector>
@@ -64,18 +64,6 @@ typedef bool teResult;
 #if defined(DEBUG) || defined(_DEBUG)
 #define TE_DEBUG
 #endif
-
-// Casting-Methode mit Runtime-Fehlerabfrage und -ausgabe
-template <class c, class d> c * te_cast(d* in) {
-	if (c* out = dynamic_cast<c*>(in))
-		return value;
-	else {
-		char msg[128];
-		sprintf_s(msg, "Cannot convert %s to %s!", typeid(d).name(), typeid(c).name());
-		TRACE(true, msg);
-	}
-	return NULL;
-}
 
 //char* in wchar_t* =========VORSICHT: Nach Aufruf muss die Vaiable wc wieder gelöscht werden: delete[] wc;=================
 static const wchar_t * teCharToWchar(const char * c)

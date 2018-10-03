@@ -93,24 +93,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(DXSDK_DIR)Include;G:\C++\Phoenix\Tesseract\TEEngine;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;G:\C++\Phoenix\Tesseract\x86\Debug;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(DXSDK_DIR)Include;G:\C++\Phoenix\Tesseract\TEEngine;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;G:\C++\Phoenix\Tesseract\x86\Release;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);G:\C++\Phoenix\Tesseract\TEEngine\include;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;G:\C++\Phoenix\Tesseract\TEEngine\lib;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\lib</LibraryPath>
-    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine Test Space\bin\</OutDir>
-    <IntDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine Test Space\Test Area\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>OneiroAlphaD</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)include\;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\include;G:\C++\Phoenix\Vampire\Vampire</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;G:\C++\Phoenix\Tesseract\TEEngine\lib;G:\C++\Phoenix\Vampire\Vampire\x64\Debug</LibraryPath>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)bin\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);G:\C++\Phoenix\Tesseract\TEEngine\include;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;G:\C++\Phoenix\Tesseract\TEEngine\lib;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\lib</LibraryPath>
-    <OutDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine Test Space\bin\</OutDir>
-    <IntDir>G:\C++\Phoenix\Tesseract\TEEngine\Engine Test Space\Test Area\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>OneiroAlpha</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)include\;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\include;G:\C++\Phoenix\Vampire\Vampire</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;G:\C++\Phoenix\Tesseract\TEEngine\lib;G:\C++\Phoenix\Vampire\Vampire\x64\Release</LibraryPath>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)bin\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
