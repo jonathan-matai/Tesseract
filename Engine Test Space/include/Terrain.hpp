@@ -6,6 +6,13 @@ using namespace DirectX;
 #define _alloc(type, count) static_cast<type*>(::operator new(sizeof(type) * count))
 #define _free(pointer) ::operator delete(pointer)
 
+struct Vertex_3PNU
+{
+	XMFLOAT3	position;
+	XMFLOAT3	normal;
+	XMFLOAT2	uv;
+};
+
 struct TerrainSettings
 {
 	uint32_t	chunkSize;			// in Metern, idealerweise immer positive Potenzen von 2 (z.B. 2, 4, 8, 16)
@@ -33,21 +40,19 @@ struct ChunkSettings
 	*/
 };
 
-struct Vertex_3PNU
+struct ChunkGenerationInfo
 {
-	XMFLOAT3	position;
-	XMFLOAT3	normal;
-	XMFLOAT2	uv;
+	TerrainSettings*	terrainSettings;	// Globale Einstellungen zur Gernerierung der Welt
+	ChunkSettings*		chunkSettings;		// Chunkspezifische Einstellungen
+	Vertex_3PNU**		vertexBuffer;		// Adresse eines Pointer, der den Vertexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
+	size_t*				n_verticies;		// Adresse einer Varibale, die die Zahl der Vertizen hält
+	uint32_t**			indexBuffer;		// Adresse eines Pointer, der den Indexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
+	size_t*				n_indicies;			// Adresse einer Variable, die die Zahl der Indizen hält
 };
 
-/*
-Zur Terraingenerierung
 
-const TerrainSettings&	terrainSettings:		Globale Einstellungen zur Gernerierung der Welt
-const ChunkSettings&	chunkSettings:			Chunkspezifische Einstellungen
-Vertex_3PNT**			vertexBuffer:			Adresse eines Pointer, der den Vertexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
-size_t*					n_verticies:			Adresse einer Varibale, die die Zahl der Vertizen hält
-uint32_t**				indexBuffer:			Adresse eines Pointer, der den Indexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
-size_t*					n_indicies				Adresse einer Variable, die die Zahl der Indizen hält
-*/
-void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& chunkSettings, Vertex_3PNU** vertexBuffer, size_t* n_verticies, uint32_t** indexBuffer, size_t* n_indicies);
+// Generate 1 chunk on the main thread
+void generateChunk(const ChunkGenerationInfo& info);
+
+// Generate multiple chunks using multithreading
+void generateChunks(ChunkGenerationInfo* p_infos, size_t n_infos);

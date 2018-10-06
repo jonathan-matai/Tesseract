@@ -1,6 +1,7 @@
 #include "Terrain.hpp"
 
 #include <memory> // memset(), memcpy_s()
+#include <thread>
 
 uint32_t hash(uint32_t i, uint32_t j, uint64_t seed)
 {
@@ -62,12 +63,14 @@ template<typename t> bool cropArray2d(t* input, size_t width_input, size_t heigh
 	return true;
 }
 
-void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& chunkSettings, Vertex_3PNU** vertexBuffer, size_t* n_verticies, uint32_t** indexBuffer, size_t* n_indicies)
+
+
+void generateChunk(const ChunkGenerationInfo& info)
 {
 	// Breite der Dreiecke und Zahl der Vertexreihen bestimmen
 
-	float triangleWidth = powf(2.0f, (float) -chunkSettings.tesselation);
-	uint32_t n_rows_nor = (uint32_t) (terrainSettings.chunkSize / triangleWidth) + 1;	/* n_Vertizenreihen = n_Dreieckreihen + 1 */
+	float triangleWidth = powf(2.0f, (float) -info.chunkSettings->tesselation);
+	uint32_t n_rows_nor = (uint32_t) (info.terrainSettings->chunkSize / triangleWidth) + 1;	/* n_Vertizenreihen = n_Dreieckreihen + 1 */
 	uint32_t n_rows_ext = n_rows_nor + 2;												/* Überlappung für Normalen */
 	uint32_t n_tris_nor = n_rows_nor - 1;
 
@@ -76,12 +79,12 @@ void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& 
 	Vertex_3PNU* t_vertexBuffer = _alloc(Vertex_3PNU, n_rows_ext * n_rows_ext);
 	memset(t_vertexBuffer, 0x00, sizeof(Vertex_3PNU) * n_rows_ext * n_rows_ext);
 
-	float cur_amplitude		= terrainSettings.baseAmplitude / 2;
-	float cur_wavelength	= terrainSettings.baseWavelength;
-	uint64_t cur_seed		= terrainSettings.seed;
+	float cur_amplitude		= info.terrainSettings->baseAmplitude / 2;
+	float cur_wavelength	= info.terrainSettings->baseWavelength;
+	uint64_t cur_seed		= info.terrainSettings->seed;
 
 	// Durch alle Noiselayers loopen
-	for (uint8_t i = 0; i < terrainSettings.layers; ++i)
+	for (uint8_t i = 0; i < info.terrainSettings->layers; ++i)
 	{
 		// Position der Interpolationsankerpunkte
 		XMFLOAT2 hashLocation = { floorf(0.0f / cur_wavelength) * cur_wavelength, floorf(0.0f / cur_wavelength) * cur_wavelength };
@@ -96,8 +99,8 @@ void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& 
 			for (size_t k = 0; k < n_rows_ext; ++k)
 			{
 				// Vertexposition bestimmen
-				XMFLOAT2 vertexLocation = { (float) terrainSettings.chunkSize * chunkSettings.id_x /* Kleinere Seite */ + ( (float) k - 1 ) /* Überlappung für Normalen */ * triangleWidth,
-											(float) terrainSettings.chunkSize * chunkSettings.id_z /* Kleinere Seite */ + ( (float) j - 1 ) /* Überlappung für Normalen */ * triangleWidth };
+				XMFLOAT2 vertexLocation = { (float) info.terrainSettings->chunkSize * info.chunkSettings->id_x /* Kleinere Seite */ + ( (float) k - 1 ) /* Überlappung für Normalen */ * triangleWidth,
+											(float) info.terrainSettings->chunkSize * info.chunkSettings->id_z /* Kleinere Seite */ + ( (float) j - 1 ) /* Überlappung für Normalen */ * triangleWidth };
 
 				// Position in Vertexbuffer schrieben
 				t_vertexBuffer[j * n_rows_ext + k].position.x = vertexLocation.x;
@@ -119,14 +122,14 @@ void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& 
 					bicubicInterpolation(hashValues, fmodf(vertexLocation.x, cur_wavelength) / cur_wavelength, fmodf(vertexLocation.y, cur_wavelength) / cur_wavelength);
 
 				// UV-Koordinate bestimmen
-				XMStoreFloat2(&t_vertexBuffer[j * n_rows_ext + k].uv, XMLoadFloat2(&vertexLocation) / terrainSettings.textureWidth);
+				XMStoreFloat2(&t_vertexBuffer[j * n_rows_ext + k].uv, XMLoadFloat2(&vertexLocation) / info.terrainSettings->textureWidth);
 			}
 		}
 
 		// Wellenlänge und Amplitude für nächste Ebene modifizieren
 
-		cur_amplitude	*= terrainSettings.mod_aplitude;
-		cur_wavelength	*= terrainSettings.mod_wavelength;
+		cur_amplitude	*= info.terrainSettings->mod_aplitude;
+		cur_wavelength	*= info.terrainSettings->mod_wavelength;
 		cur_seed		+= 13;
 	}
 
@@ -160,20 +163,20 @@ void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& 
 		XMStoreFloat3(&t_vertexBuffer[i].normal, XMVector3Normalize(XMLoadFloat3(&t_vertexBuffer[i].normal)));
 
 	// Speicher für zugeschnittenes Array reservieren
-	*vertexBuffer = _alloc(Vertex_3PNU, n_rows_nor * n_rows_nor);
+	*info.vertexBuffer = _alloc(Vertex_3PNU, n_rows_nor * n_rows_nor);
 
 	// Array zuschneiden
-	if (!cropArray2d(t_vertexBuffer, n_rows_ext, n_rows_ext, *vertexBuffer, 1, 1, n_rows_nor, n_rows_nor, sizeof(Vertex_3PNU) * n_rows_nor * n_rows_nor))
+	if (!cropArray2d(t_vertexBuffer, n_rows_ext, n_rows_ext, *info.vertexBuffer, 1, 1, n_rows_nor, n_rows_nor, sizeof(Vertex_3PNU) * n_rows_nor * n_rows_nor))
 		throw std::exception("Output buffer doesn't have the same size!");
 
 	// Alters Array freigeben
 	_free(t_vertexBuffer);
 
 	// Anzahl der Elemente im Buffer zurückgeben
-	*n_verticies = n_rows_nor * n_rows_nor;
+	*info.n_verticies = n_rows_nor * n_rows_nor;
 
 	// Speicher für den Indexbuffer reservieren
-	*indexBuffer = _alloc(uint32_t, n_tris_nor * n_tris_nor * 6);
+	*info.indexBuffer = _alloc(uint32_t, n_tris_nor * n_tris_nor * 6);
 
 	// Indexbuffer für Mesh erzeugen
 
@@ -181,15 +184,28 @@ void generateChunk(const TerrainSettings& terrainSettings, const ChunkSettings& 
 	{
 		for (size_t j = 0; j < n_rows_nor - 1; ++j)
 		{
-			(*indexBuffer)[( j * n_tris_nor + i ) * 6 + 0] = (uint32_t)( j		 * n_rows_nor + i		);
-			(*indexBuffer)[( j * n_tris_nor + i ) * 6 + 1] = (uint32_t)( j		 * n_rows_nor + i + 1	);
-			(*indexBuffer)[( j * n_tris_nor + i ) * 6 + 2] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
-			(*indexBuffer)[( j * n_tris_nor + i ) * 6 + 3] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
-			(*indexBuffer)[( j * n_tris_nor + i ) * 6 + 4] = (uint32_t)( ( j + 1 ) * n_rows_nor + i		);
-			(*indexBuffer)[( j * n_tris_nor + i ) * 6 + 5] = (uint32_t)( j		 * n_rows_nor + i		);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 0] = (uint32_t)( j		 * n_rows_nor + i			);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 1] = (uint32_t)( j		 * n_rows_nor + i + 1		);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 2] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 3] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 4] = (uint32_t)( ( j + 1 ) * n_rows_nor + i		);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 5] = (uint32_t)( j		 * n_rows_nor + i			);
 		}
 	}
 
 	// Anzahl der Elemente im Buffer zurückgeben
-	*n_indicies = n_tris_nor * n_tris_nor * 6;
+	*info.n_indicies = n_tris_nor * n_tris_nor * 6;
+}
+
+void generateChunks(ChunkGenerationInfo * p_infos, size_t n_infos)
+{
+	std::thread* threads = new std::thread[n_infos];
+
+	for (size_t i = 0; i < n_infos; ++i)
+		threads[i] = std::thread(generateChunk, p_infos[i]);
+
+	for (size_t i = 0; i < n_infos; ++i)
+		threads[i].join();
+
+	delete[] threads;
 }
