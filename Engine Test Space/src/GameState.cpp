@@ -5,10 +5,24 @@ GameState::GameState()
 	entityManager = new EntityManager("entities.ool");
 	terrainGenerator = new TerrainGenerator;
 
-	sun.ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	sun.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
-	sun.specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
-	sun.direction = XMFLOAT3(0.0f, -0.4f, 1.0f);
+	ZeroMemory(&sun, sizeof(sun));
+	sun[0].ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+	sun[0].diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
+	sun[0].specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+	sun[0].direction = XMFLOAT3(0.0f, -0.4f, 1.0f);
+	
+	//sun[1].ambient = XMFLOAT4(0.84f, 0.45f, 0.07f, 1.0f);
+	//sun[1].diffuse = XMFLOAT4(0.84f, 0.45f, 0.07f, 10.0f);
+	//sun[1].specular = XMFLOAT4(0.84f, 0.45f, 0.07f, 1.0f);
+	//sun[1].direction = XMFLOAT3(0.3f, -0.4f, 1.0f);
+
+	sun[1].ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+	sun[1].diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 10.0f);
+	sun[1].specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+	sun[1].direction = XMFLOAT3(0.5f, -0.4f, 1.0f);
+	
+	sun[2].ambient = sun[2].diffuse = sun[2].specular = XMFLOAT4();
+	sun[2].direction = XMFLOAT3();
 }
 
 GameState::~GameState()
@@ -65,7 +79,7 @@ void GameState::tick(double deltatime)
 void GameState::render()
 {
 	GRAPHICS->teStartScene();
-	GRAPHICS->teSetGeneralRenderStates(sun);
+	GRAPHICS->teSetGeneralRenderStates(sun, 2);
 	entityManager->render();
 	GRAPHICS->tePresent();
 }

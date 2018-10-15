@@ -19,6 +19,6 @@ class GameState : public State
 	private:
 		EntityManager * entityManager;
 		TerrainGenerator * terrainGenerator;
-		DirectionalLight sun;
+		DirectionalLight sun[3];
 };
 

@@ -58,7 +58,7 @@ class TEGraphics
 		//void teSetWVPMatrix(XMMATRIX objectWorldMatrix) { XMMATRIX wvpm = objectWorldMatrix * m_pCamera->teGetViewMatrix()*m_pCamera->teGetProjectionMatrix(); m_pFXWVPM->SetMatrix(reinterpret_cast<float*>(&wvpm)); };
 		void teSetObjectRenderStates(XMMATRIX objectWorldMatrix, LightMaterial objectMat, XMMATRIX textransform);
 		void teSetObjectTexture(ID3D11ShaderResourceView * tex);
-		void teSetGeneralRenderStates(DirectionalLight sun);
+		void teSetGeneralRenderStates(DirectionalLight * sun, UINT numLightSources = 1);
 		void teSyncCameras(XMFLOAT3 pos) { m_pCamera->teSetCamPos(pos); };
 
 	private:
@@ -98,8 +98,10 @@ class TEGraphics
 		ID3DX11EffectMatrixVariable * m_pFXWorld;
 		ID3DX11EffectVariable * m_pFXmat;
 		ID3DX11EffectVariable * m_pFXdirLight;
+		ID3DX11EffectVariable * m_pFXfogStart, *m_pFXfogRange;
 		ID3DX11EffectTechnique * m_pFXTechnique;
 		ID3DX11EffectVectorVariable * m_pFXcameraPos;
+		ID3DX11EffectVectorVariable * m_pFXfogColor;
 		ID3D11InputLayout * m_pInputLayout;
 		ID3D11ShaderResourceView * m_pFontResourceView;
 		ID3DX11EffectShaderResourceVariable * m_pSRVariable;

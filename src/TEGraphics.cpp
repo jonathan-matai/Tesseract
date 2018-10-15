@@ -186,8 +186,11 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 	m_pDevice->CreateBlendState(&blenddesc, &m_pBlendState);
 
 	DirectX::ScratchImage image;
+	DirectX::TexMetadata texdata;
+	DirectX::LoadFromDDSFile(L"res/Data/map/blend.dds", NULL, &texdata, image);
 
-	//m_pImmidiateContext->OMSetBlendState(m_pBlendState, DirectX::LoadFromDDSFile(L"", NULL, NULL, NULL));
+	float blendfactor[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	m_pImmidiateContext->OMSetBlendState(m_pBlendState, blendfactor, 0xffffffff);
 
 	LOGFILE->print(colors::TE_SUCCEEDED, "DirectX 11 wurde erfolgreich initialisiert.");
 
@@ -224,9 +227,22 @@ void TEGraphics::teSetObjectTexture(ID3D11ShaderResourceView * tex)
 	m_pSRVariable->SetResource(tex);
 }
 
-void TEGraphics::teSetGeneralRenderStates(DirectionalLight sun)
+void TEGraphics::teSetGeneralRenderStates(DirectionalLight * sun, UINT numLightSources)
 {
-	m_pFXdirLight->SetRawValue(&sun, 0, sizeof(DirectionalLight));
+	//fog vars
+	XMFLOAT4 fogColor = { 0.5f, 0.5f, 0.5f, 1.0f };
+	m_pFXfogColor->SetRawValue(&fogColor, 0, sizeof(XMFLOAT4));
+
+	float fogRange = 1500.0f;
+	m_pFXfogRange->SetRawValue(&fogRange, 0, sizeof(float));
+
+	float fogStart = 50.0f;
+	m_pFXfogStart->SetRawValue(&fogStart, 0, sizeof(float));
+
+	if (numLightSources > 3)
+		numLightSources = 3;
+
+	m_pFXdirLight->SetRawValue(&sun[0], 0, sizeof(DirectionalLight) * numLightSources);
 	m_pFXcameraPos->SetRawValue(&m_pCamera->m_camPos, 0, sizeof(XMFLOAT3));
 }
 
@@ -499,6 +515,12 @@ teResult TEGraphics::teCreateShader()
 	m_pSRVariable = m_pFX->GetVariableByName("gDiffuseMap")->AsShaderResource();
 
 	m_pFXTexTransform = m_pFX->GetVariableByName("gTexTransform")->AsMatrix();
+
+	m_pFXfogColor = m_pFX->GetVariableByName("gFogColor")->AsVector();
+
+	m_pFXfogStart = m_pFX->GetVariableByName("gFogStart");
+
+	m_pFXfogRange = m_pFX->GetVariableByName("gFogRange");
 
 	return true;
 }

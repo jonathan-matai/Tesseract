@@ -57,10 +57,14 @@ Texture2D gDiffuseMap;
 
 cbuffer cbPerFrame : register(b1)
 {
-	DirectionalLight gDirLight;
+	DirectionalLight gDirLight[3];
 	PointLight gPointLight;
 	SpotLight gSpotLight;
 	float3 gEyePosW;
+
+    float gFogStart;
+    float gFogRange;
+    float4 gFogColor;
 };
 
 RasterizerState WireframeRS
@@ -83,6 +87,18 @@ SamplerState anisotropicFilter
     MaxAnisotropy = 4;
     AddressU = WRAP;
     AddressV = WRAP;
+};
+
+BlendState blend
+{
+    BlendEnable[0] = TRUE;
+    RenderTargetWriteMask[0] = 0x0F;
+    BlendOp = ADD;
+    BlendOpAlpha = ADD;
+    DestBlend = SRC_COLOR;
+    SrcBlend = ZERO;
+    DestBlendAlpha = SRC_COLOR;
+    SrcBlendAlpha = ZERO;
 };
 
 void ComputeDirectionalLight(Material mat, DirectionalLight L, float3 normal, float3 toEye, out float4 ambient, out float4 diffuse, out float4 spec)
@@ -210,13 +226,21 @@ VertexOut VS(VertexIn In)
 	return Out;
 }
 
-float4 PS(VertexOut In) : SV_Target
+float4 PS(VertexOut In, in uniform int gLightCount, in uniform bool gUseFog) : SV_Target
 {
-    float4 texcol = gDiffuseMap.Sample(anisotropicFilter, In.texW);
-
 	In.normalW = normalize(In.normalW);
 
-    float3 toEyeW = normalize(gEyePosW - In.posW);
+    float3 toEyeW = gEyePosW - In.posW;
+
+    float distToEye = length(toEyeW);
+
+    toEyeW = normalize(toEyeW);
+
+    float4 texcol = gDiffuseMap.Sample(anisotropicFilter, In.texW);
+
+    clip(texcol.a - 0.1f);
+
+    float4 litColor = texcol;
 
     float4 ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
     float4 diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -224,25 +248,33 @@ float4 PS(VertexOut In) : SV_Target
 
     float4 A, S, D;
 
-    ComputeDirectionalLight(gMaterial, gDirLight, In.normalW, toEyeW, A, D, S);
+	[unroll]
+    for (int i = 0; i < gLightCount; i++)
+    {
+        ComputeDirectionalLight(gMaterial, gDirLight[i], In.normalW, toEyeW, A, D, S);
 
-    ambient += A;
-    diffuse += D;
-    specular += S;
+        ambient += A;
+        diffuse += D;
+        specular += S;
 
-    ComputePointLight(gMaterial, gPointLight, In.posW, In.normalW, toEyeW, A, D, S);
+        ComputePointLight(gMaterial, gPointLight, In.posW, In.normalW, toEyeW, A, D, S);
 
-	ambient += A;
-    diffuse += D;
-    specular += S;
+        ambient += A;
+        diffuse += D;
+        specular += S;
 
-    ComputeSpotLight(gMaterial, gSpotLight, In.posW, In.normalW, toEyeW, A, D, S);
+        ComputeSpotLight(gMaterial, gSpotLight, In.posW, In.normalW, toEyeW, A, D, S);
 
-	ambient += A;
-    diffuse += D;
-    specular += S;
+        ambient += A;
+        diffuse += D;
+        specular += S;
+    }
 
-    float4 litColor = texcol * (ambient + diffuse) + specular;
+    litColor = texcol * (ambient + diffuse) + specular;
+
+    float fogLerp = saturate((distToEye - gFogStart) / gFogRange);
+
+    litColor = lerp(litColor, gFogColor, fogLerp);
 
     litColor.a = gMaterial.diffuse.a * texcol.a;
 
@@ -251,11 +283,29 @@ float4 PS(VertexOut In) : SV_Target
 
 technique11 LightTech
 {
-	pass lightPass
+	pass lightPass1Light
 	{
 		SetVertexShader(CompileShader(vs_5_0, VS()));
 		SetGeometryShader(NULL);
-		SetPixelShader(CompileShader(ps_5_0, PS()));
+		SetPixelShader(CompileShader(ps_5_0, PS(1, true)));
+
+        SetRasterizerState(SolidRS);
+    }
+
+    pass lightPass2Light
+    {
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetGeometryShader(NULL);
+        SetPixelShader(CompileShader(ps_5_0, PS(2, true)));
+
+        SetRasterizerState(SolidRS);
+    }
+
+    pass lightPass3Light
+    {
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetGeometryShader(NULL);
+        SetPixelShader(CompileShader(ps_5_0, PS(3, true)));
 
         SetRasterizerState(SolidRS);
     }
@@ -263,11 +313,29 @@ technique11 LightTech
 
 technique11 LightTechWire
 {
-    pass lightPass
+    pass lightPass1Light
     {
         SetVertexShader(CompileShader(vs_5_0, VS()));
         SetGeometryShader(NULL);
-        SetPixelShader(CompileShader(ps_5_0, PS()));
+        SetPixelShader(CompileShader(ps_5_0, PS(1, false)));
+
+        SetRasterizerState(WireframeRS);
+    }
+
+    pass lightPass2Light
+    {
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetGeometryShader(NULL);
+        SetPixelShader(CompileShader(ps_5_0, PS(2, false)));
+
+        SetRasterizerState(WireframeRS);
+    }
+
+    pass lightPass3Light
+    {
+        SetVertexShader(CompileShader(vs_5_0, VS()));
+        SetGeometryShader(NULL);
+        SetPixelShader(CompileShader(ps_5_0, PS(3, false)));
 
         SetRasterizerState(WireframeRS);
     }

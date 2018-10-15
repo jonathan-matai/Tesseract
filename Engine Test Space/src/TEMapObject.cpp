@@ -511,7 +511,7 @@ TEMap::TEMap(TE_OBJECT_DESC & init) : TEObject(init)
 
 	m_material.ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
 	m_material.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
-	m_material.specular = XMFLOAT4(0.0f, 0.23f, 0.77f, 16.0f);
+	m_material.specular = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
 
 	LOGFILE->print(colors::TE_CONSTRUCTION, "Die Map wurde erfolgreich erstellt.");
 }
@@ -547,13 +547,8 @@ void TEMap::render()
 			GRAPHICS->teGetDeviceContext()->IASetVertexBuffers(0, 1, &m_map.chunks[chunkIterator].vertexBuffer, &stride, &offset);
 			GRAPHICS->teGetDeviceContext()->IASetIndexBuffer(m_map.chunks[chunkIterator].indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-			D3DX11_TECHNIQUE_DESC techDesc;
-			GRAPHICS->teGetEffectTechnique()->GetDesc(&techDesc);
-			for (UINT p = 0; p < techDesc.Passes; ++p)
-			{
-				GRAPHICS->teGetEffectTechnique()->GetPassByIndex(p)->Apply(0, GRAPHICS->teGetDeviceContext());
-				GRAPHICS->teGetDeviceContext()->DrawIndexed(m_map.indicesPerChunk, 0, 0);
-			}
+			GRAPHICS->teGetEffectTechnique()->GetPassByName("lightPass2Light")->Apply(0, GRAPHICS->teGetDeviceContext());
+			GRAPHICS->teGetDeviceContext()->DrawIndexed(m_map.indicesPerChunk, 0, 0);
 		}
 	}
 }
