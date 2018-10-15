@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iterator>
 
-#include "Logfile.hpp"
+#include "../../include/Logfile.hpp"
 #include "Creature.hpp"
 #include "TEMapObject.hpp"
 #include "Player.hpp"

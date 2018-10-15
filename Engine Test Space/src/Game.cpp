@@ -1,10 +1,10 @@
 #include <Windows.h>
 #include <iostream>
 
-#include "Logfile.hpp"
+#include "../../include/Logfile.hpp"
 #include "..\include\GameState.hpp"
-#include "MemoryManager.hpp"
-#include "Language.hpp"
+#include "../../include/MemoryManager.hpp"
+#include "../../include/Language.hpp"
 #include "..\include\GameGlobal.hpp"
 
 void update(float deltatime);

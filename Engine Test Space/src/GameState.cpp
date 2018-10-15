@@ -3,7 +3,7 @@
 GameState::GameState()
 {
 	entityManager = new EntityManager("entities.ool");
-	terrainGenerator = new TerrainGenerator;
+	
 
 	ZeroMemory(&sun, sizeof(sun));
 	sun[0].ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
@@ -41,6 +41,8 @@ TEResult GameState::init(const char * mapPath)
 
 	if (!FileLoader::teFileExists(wcmapPath))
 	{
+		terrainGenerator = new TerrainGenerator();
+
 		delete wcmapPath;
 
 		GeneratorSettings gs = {

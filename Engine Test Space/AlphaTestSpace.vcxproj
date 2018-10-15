@@ -93,27 +93,27 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(DXSDK_DIR)Include;G:\C++\Phoenix\Tesseract\TEEngine;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;G:\C++\Phoenix\Tesseract\x86\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>Physics Engine\include\;$(WindowsSDK_IncludePath);$(VC_IncludePath);include\</IncludePath>
+    <LibraryPath>bin\Vampire;bin</LibraryPath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(DXSDK_DIR)Include;G:\C++\Phoenix\Tesseract\TEEngine;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;G:\C++\Phoenix\Tesseract\x86\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>Physics Engine\include\;$(WindowsSDK_IncludePath);$(VC_IncludePath);include\</IncludePath>
+    <LibraryPath>bin\Vampire;bin</LibraryPath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)include\;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\include;G:\C++\Phoenix\Vampire\Vampire</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;G:\C++\Phoenix\Tesseract\TEEngine\lib;G:\C++\Phoenix\Vampire\Vampire\x64\Debug</LibraryPath>
+    <IncludePath>Physics Engine\include\;$(WindowsSDK_IncludePath);$(VC_IncludePath);include\</IncludePath>
+    <LibraryPath>$(SolutionDir)bin\;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)include\;G:\C++\Phoenix\Tesseract\TEEngine\Physics Engine\include;G:\C++\Phoenix\Vampire\Vampire</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;G:\C++\Phoenix\Tesseract\TEEngine\lib;G:\C++\Phoenix\Vampire\Vampire\x64\Release</LibraryPath>
+    <IncludePath>Physics Engine\include\;$(WindowsSDK_IncludePath);$(VC_IncludePath);include\</IncludePath>
+    <LibraryPath>$(SolutionDir)bin\;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
@@ -125,7 +125,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11d.lib;TE86D.lib;Effects11d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11d.lib;TE86D.lib;Effects11d.lib;%(AdditionalDependencies);Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11d.lib;TE64D.lib;VaPhD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11d.lib;%(AdditionalDependencies);Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,7 +149,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Effects11.lib;D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11.lib;TE86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Effects11.lib;D3DCompiler.lib;dxgi.lib;dxguid.lib;d3d11.lib;d3dx11.lib;TE86.lib;%(AdditionalDependencies);Tesseract.lib;Vampire.lib;Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +163,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11.lib;TE64.lib;VaPh.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3DCompiler.lib;dxgi.lib;d3d11.lib;dxguid.lib;effects11.lib;%(AdditionalDependencies);Tesseract/Tesseract.lib;Vampire/Vampire.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TEObject.hpp"
+#include "../../include/TEObject.hpp"
 #include "GameGlobal.hpp"
 
 typedef enum CreatureState {

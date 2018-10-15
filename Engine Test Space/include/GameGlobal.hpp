@@ -1,8 +1,8 @@
 #pragma once
 
 //Includes
-#include <Vampire.hpp>
-#include <TEEngine.hpp>
+#include <../../Physics Engine/include/Vampire.hpp>
+#include <../../include/TEEngine.hpp>
 
 //Defines
 #define GRAPHICS (ENGINE->teGetGraphics())
