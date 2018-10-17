@@ -106,14 +106,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>Physics Engine\include\;$(WindowsSDK_IncludePath);$(VC_IncludePath);include\</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\;$(SolutionDir)Physics Engine\lib\;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\;$(SolutionDir)Physics Engine\lib\;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(SolutionDir)bin\</LibraryPath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>Physics Engine\include\;$(WindowsSDK_IncludePath);$(VC_IncludePath);include\</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\;$(SolutionDir)Physics Engine\lib\;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\;$(SolutionDir)Physics Engine\lib\;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(SolutionDir)bin\</LibraryPath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
