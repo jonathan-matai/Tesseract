@@ -121,7 +121,7 @@ teResult teEngine::teDoMessageLoop(void(*Update)(float), void(*Render)())
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 
-	while (msg.message != WM_QUIT)
+	while (msg.message != WM_QUIT || msg.message != WM_DESTROY)
 	{
 		if (PeekMessage(&msg, m_hWnd, 0, 0, PM_REMOVE))
 		{
@@ -144,6 +144,8 @@ teResult teEngine::teDoMessageLoop(void(*Update)(float), void(*Render)())
 			teCalculateFPS();
 		}
 	}
+
+	PostQuitMessage(0);
 
 	return true;
 }

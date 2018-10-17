@@ -102,7 +102,7 @@ void TECamera::teWalk(float d)
 
 void TECamera::tePitch(float angle)
 {
-	XMMATRIX R = XMMatrixRotationAxis(XMLoadFloat3(&m_camPos), angle);
+	XMMATRIX R = XMMatrixRotationAxis(XMLoadFloat3(&m_camRight), angle);
 
 	XMStoreFloat3(&m_camUp, XMVector3TransformNormal(XMLoadFloat3(&m_camUp), R));
 	XMStoreFloat3(&m_camLookAt, XMVector3TransformNormal(XMLoadFloat3(&m_camLookAt), R));

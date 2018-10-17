@@ -7,7 +7,7 @@ GameState::GameState()
 
 	ZeroMemory(&sun, sizeof(sun));
 	sun[0].ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	sun[0].diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 20.0f);
+	sun[0].diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 2.0f);
 	sun[0].specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
 	sun[0].direction = XMFLOAT3(0.0f, -0.4f, 1.0f);
 	
@@ -17,7 +17,7 @@ GameState::GameState()
 	//sun[1].direction = XMFLOAT3(0.3f, -0.4f, 1.0f);
 
 	sun[1].ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	sun[1].diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 10.0f);
+	sun[1].diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.3f);
 	sun[1].specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
 	sun[1].direction = XMFLOAT3(0.5f, -0.4f, 1.0f);
 	

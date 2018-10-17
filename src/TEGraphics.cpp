@@ -151,7 +151,8 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 	m_farRenderDist = 2000.0f;
 	m_pCamera = new TECamera();
 	m_pCamera->teInit();
-	m_pCamera->teSetLens(TE_DEG_TO_RAD(45.0f), m_aspectRatio, 1.0f, m_farRenderDist);
+	m_pCamera->teSetLens(TE_DEG_TO_RAD(45.0f), m_aspectRatio, 0.5f, m_farRenderDist);
+	m_pCamera->teSetCamPos(20.0f, 30.0f, 20.0f);
 
 	//Shader erstellen
 	if (!teCreateShader())
@@ -179,7 +180,7 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 	blenddesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	blenddesc.RenderTarget[0].DestBlend = D3D11_BLEND_SRC_COLOR;
 	blenddesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ZERO;
-	blenddesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_SRC_COLOR;
+	blenddesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_SRC_ALPHA;
 	blenddesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
 
 
@@ -190,7 +191,7 @@ teResult TEGraphics::teInit(wchar_t * iniFile, HWND hWnd, wchar_t * shaderFile)
 	DirectX::LoadFromDDSFile(L"res/Data/map/blend.dds", NULL, &texdata, image);
 
 	float blendfactor[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-	m_pImmidiateContext->OMSetBlendState(m_pBlendState, blendfactor, 0xffffffff);
+	//m_pImmidiateContext->OMSetBlendState(m_pBlendState, blendfactor, 0xffffffff);
 
 	LOGFILE->print(colors::TE_SUCCEEDED, "DirectX 11 wurde erfolgreich initialisiert.");
 

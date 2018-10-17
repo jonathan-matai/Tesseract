@@ -76,8 +76,8 @@ void generateChunk(const ChunkGenerationInfo& info)
 
 	// Speicher reservieren und alle Bits auf 0 setzen
 
-	Vertex_3PNU* t_vertexBuffer = _alloc(Vertex_3PNU, n_rows_ext * n_rows_ext);
-	memset(t_vertexBuffer, 0x00, sizeof(Vertex_3PNU) * n_rows_ext * n_rows_ext);
+	Vertex* t_vertexBuffer = _alloc(Vertex, n_rows_ext * n_rows_ext);
+	memset(t_vertexBuffer, 0x00, sizeof(Vertex) * n_rows_ext * n_rows_ext);
 
 	float cur_amplitude		= info.terrainSettings->baseAmplitude / 2;
 	float cur_wavelength	= info.terrainSettings->baseWavelength;
@@ -103,8 +103,8 @@ void generateChunk(const ChunkGenerationInfo& info)
 											(float) info.terrainSettings->chunkSize * info.chunkSettings->id_z /* Kleinere Seite */ + ( (float) j - 1 ) /* Überlappung für Normalen */ * triangleWidth };
 
 				// Position in Vertexbuffer schrieben
-				t_vertexBuffer[j * n_rows_ext + k].position.x = vertexLocation.x;
-				t_vertexBuffer[j * n_rows_ext + k].position.z = vertexLocation.y;
+				t_vertexBuffer[j * n_rows_ext + k].pos.x = vertexLocation.x;
+				t_vertexBuffer[j * n_rows_ext + k].pos.z = vertexLocation.y;
 
 				// Interpolationsankerpunkte bestimmen
 				XMFLOAT2 hashLocNew = { floorf(vertexLocation.x / cur_wavelength) * cur_wavelength,
@@ -118,11 +118,11 @@ void generateChunk(const ChunkGenerationInfo& info)
 				}
 
 				// y-Koordinate bestimmen
-				t_vertexBuffer[j * n_rows_ext + k].position.y +=
+				t_vertexBuffer[j * n_rows_ext + k].pos.y +=
 					bicubicInterpolation(hashValues, fmodf(vertexLocation.x, cur_wavelength) / cur_wavelength, fmodf(vertexLocation.y, cur_wavelength) / cur_wavelength);
 
 				// UV-Koordinate bestimmen
-				XMStoreFloat2(&t_vertexBuffer[j * n_rows_ext + k].uv, XMLoadFloat2(&vertexLocation) / info.terrainSettings->textureWidth);
+				XMStoreFloat2(&t_vertexBuffer[j * n_rows_ext + k].texcoord, XMLoadFloat2(&vertexLocation) / info.terrainSettings->textureWidth);
 			}
 		}
 
@@ -140,14 +140,14 @@ void generateChunk(const ChunkGenerationInfo& info)
 		for (size_t j = 0; j < n_rows_ext - 1; ++j)
 		{
 			// Pointer zu den umliegenden 4 Vertizen
-			Vertex_3PNU* pv0 = &t_vertexBuffer[j		 * n_rows_ext + i		];
-			Vertex_3PNU* pv1 = &t_vertexBuffer[j		 * n_rows_ext + i + 1	];
-			Vertex_3PNU* pv2 = &t_vertexBuffer[( j + 1 ) * n_rows_ext + i + 1	];
-			Vertex_3PNU* pv3 = &t_vertexBuffer[( j + 1 ) * n_rows_ext + i		];
+			Vertex* pv0 = &t_vertexBuffer[j		 * n_rows_ext + i		];
+			Vertex* pv1 = &t_vertexBuffer[j		 * n_rows_ext + i + 1	];
+			Vertex* pv2 = &t_vertexBuffer[( j + 1 ) * n_rows_ext + i + 1	];
+			Vertex* pv3 = &t_vertexBuffer[( j + 1 ) * n_rows_ext + i		];
 
 			// Normalen der Triangles berechnen
-			XMVECTOR normaltr = XMVector3Cross(XMLoadFloat3(&pv1->position) - XMLoadFloat3(&pv0->position), XMLoadFloat3(&pv2->position) - XMLoadFloat3(&pv0->position));
-			XMVECTOR normalbl = XMVector3Cross(XMLoadFloat3(&pv1->position) - XMLoadFloat3(&pv3->position), XMLoadFloat3(&pv2->position) - XMLoadFloat3(&pv3->position));
+			XMVECTOR normaltr = XMVector3Cross(XMLoadFloat3(&pv1->pos) - XMLoadFloat3(&pv0->pos), XMLoadFloat3(&pv2->pos) - XMLoadFloat3(&pv0->pos));
+			XMVECTOR normalbl = XMVector3Cross(XMLoadFloat3(&pv1->pos) - XMLoadFloat3(&pv3->pos), XMLoadFloat3(&pv2->pos) - XMLoadFloat3(&pv3->pos));
 
 			// Normalen auf die umgebenden 4 Vertizen addieren
 			XMStoreFloat3(&pv0->normal, XMLoadFloat3(&pv0->normal) + normaltr + normalbl);
@@ -160,13 +160,13 @@ void generateChunk(const ChunkGenerationInfo& info)
 	// Normalen normalisieren
 
 	for (size_t i = 0; i < n_rows_ext * n_rows_ext; ++i)
-		XMStoreFloat3(&t_vertexBuffer[i].normal, XMVector3Normalize(XMLoadFloat3(&t_vertexBuffer[i].normal)));
+		XMStoreFloat3(&t_vertexBuffer[i].normal, XMVectorNegate(XMVector3Normalize(XMLoadFloat3(&t_vertexBuffer[i].normal))));
 
 	// Speicher für zugeschnittenes Array reservieren
-	*info.vertexBuffer = _alloc(Vertex_3PNU, n_rows_nor * n_rows_nor);
+	*info.vertexBuffer = _alloc(Vertex, n_rows_nor * n_rows_nor);
 
 	// Array zuschneiden
-	if (!cropArray2d(t_vertexBuffer, n_rows_ext, n_rows_ext, *info.vertexBuffer, 1, 1, n_rows_nor, n_rows_nor, sizeof(Vertex_3PNU) * n_rows_nor * n_rows_nor))
+	if (!cropArray2d(t_vertexBuffer, n_rows_ext, n_rows_ext, *info.vertexBuffer, 1, 1, n_rows_nor, n_rows_nor, sizeof(Vertex) * n_rows_nor * n_rows_nor))
 		throw std::exception("Output buffer doesn't have the same size!");
 
 	// Alters Array freigeben
@@ -184,12 +184,12 @@ void generateChunk(const ChunkGenerationInfo& info)
 	{
 		for (size_t j = 0; j < n_rows_nor - 1; ++j)
 		{
-			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 0] = (uint32_t)( j		 * n_rows_nor + i			);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 2] = (uint32_t)( j		 * n_rows_nor + i			);
 			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 1] = (uint32_t)( j		 * n_rows_nor + i + 1		);
-			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 2] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
-			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 3] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 0] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 5] = (uint32_t)( ( j + 1 ) * n_rows_nor + i + 1	);
 			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 4] = (uint32_t)( ( j + 1 ) * n_rows_nor + i		);
-			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 5] = (uint32_t)( j		 * n_rows_nor + i			);
+			(*info.indexBuffer)[( j * n_tris_nor + i ) * 6 + 3] = (uint32_t)( j		 * n_rows_nor + i			);
 		}
 	}
 

@@ -249,7 +249,7 @@ float4 PS(VertexOut In, in uniform int gLightCount, in uniform bool gUseFog) : S
     float4 A, S, D;
 
 	[unroll]
-    for (int i = 0; i < gLightCount; i++)
+    for (int i = 0; i < gLightCount; ++i)
     {
         ComputeDirectionalLight(gMaterial, gDirLight[i], In.normalW, toEyeW, A, D, S);
 

@@ -49,6 +49,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pcLine, i
 
 	static_cast<GameState*>(curState)->getEntityManager()->add(new TEMap(objectdesc));
 
+	//set mouse in screen middle
+	SetCursorPos(960, 540);
+
 	ENGINE->teDoMessageLoop(update, render);
 
 	delete curState;
@@ -59,6 +62,43 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pcLine, i
 void update(float deltatime)
 {
 	// Tick- und Rendermethoden des aktuellen States
+	if (GetAsyncKeyState('W') & 0x8000)
+	{
+		GRAPHICS->teGetCamera()->teWalk(100.0f * deltatime);
+	}
+	if (GetAsyncKeyState('S') & 0x8000)
+	{
+		GRAPHICS->teGetCamera()->teWalk(-100.0f * deltatime);
+	}
+	if (GetAsyncKeyState('A') & 0x8000)
+	{
+		GRAPHICS->teGetCamera()->teStrafe(-100.0f * deltatime);
+	}
+	if (GetAsyncKeyState('D') & 0x8000)
+	{
+		GRAPHICS->teGetCamera()->teStrafe(100.0f * deltatime);
+	}
+
+	float dx = 0.0f, dy = 0.0f;
+	POINT mp;
+
+	//Get the current mouse position on screen
+	GetCursorPos(&mp);
+
+	//Get the pixels mouse moved
+	dx = mp.x - (1920 / 2);
+	dy = mp.y - (1080 / 2);
+
+	//change in radians to provide fitting format for camera functions
+	dx = TE_DEG_TO_RAD(dx);
+	dy = TE_DEG_TO_RAD(dy);
+
+	//clip the value, so not every minimal movement is visible
+	GRAPHICS->teGetCamera()->teRotateY(dx * 0.15f);
+	GRAPHICS->teGetCamera()->tePitch(dy * 0.15f);
+
+	SetCursorPos(960, 540);
+
 	player->tick(deltatime);
 	GRAPHICS->teGetCamera()->teUpdateView();
 	curState->tick(deltatime);
@@ -77,36 +117,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
+			DestroyWindow(hWnd);
 			return 0;
 		}break;
 		case WM_KEYDOWN:
 		{
 			switch (wParam)
 			{
-				case 0x57:
-				{
-					GRAPHICS->teGetCamera()->teWalk(100.0f);
-				}break;
-				case 0x53:
-				{
-					GRAPHICS->teGetCamera()->teWalk(-100.0f);
-				}break;
-				case 0x41:
-				{
-					GRAPHICS->teGetCamera()->teStrafe(-100.0f);
-				}break;
-				case 0x44:
-				{
-					GRAPHICS->teGetCamera()->teStrafe(100.0f);
-				}break;
-				case 0x51:
-				{
-					GRAPHICS->teGetCamera()->teRotateY(-0.5f);
-				}break;
-				case 0x45:
-				{
-					GRAPHICS->teGetCamera()->teRotateY(0.5f);
-				}break;
 				case 0x09:
 				{
 					GRAPHICS->teSetRenderMode(0);
@@ -115,6 +132,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					GRAPHICS->teSetRenderMode(1);
 				}break;
+				case VK_ESCAPE:
+				{
+					PostQuitMessage(0);
+					DestroyWindow(hWnd);
+					return (int)(wParam);
+				}
+				
 			}
 		}
 	}

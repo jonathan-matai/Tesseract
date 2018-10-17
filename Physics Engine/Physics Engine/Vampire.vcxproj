@@ -84,14 +84,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)bin\Vampire\</OutDir>
-    <IntDir>$(SolutionDir)bin\Vampire</IntDir>
+    <TargetName>VaPhD</TargetName>
+    <OutDir>$(SolutionDir)Physics Engine\lib\</OutDir>
+    <IntDir>$(SolutionDir)Physics Engine\Physics Engine\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)bin\Vampire\</OutDir>
-    <IntDir>$(SolutionDir)bin\Vampire</IntDir>
+    <TargetName>VaPh</TargetName>
+    <OutDir>$(SolutionDir)Physics Engine\lib\</OutDir>
+    <IntDir>$(SolutionDir)Physics Engine\Physics Engine\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\Vampire\</OutDir>

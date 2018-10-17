@@ -21,5 +21,5 @@ class TEInputManager
 		TEInputManager();
 		~TEInputManager();
 
-		void tick(float deltatime);
+		static void tick(float deltatime);
 };

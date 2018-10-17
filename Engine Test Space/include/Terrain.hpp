@@ -1,17 +1,11 @@
 #pragma once
 
 #include <DirectXMath.h>
+#include "GameGlobal.hpp"
 using namespace DirectX;
 
 #define _alloc(type, count) static_cast<type*>(::operator new(sizeof(type) * count))
 #define _free(pointer) ::operator delete(pointer)
-
-struct Vertex_3PNU
-{
-	XMFLOAT3	position;
-	XMFLOAT3	normal;
-	XMFLOAT2	uv;
-};
 
 struct TerrainSettings
 {
@@ -44,7 +38,7 @@ struct ChunkGenerationInfo
 {
 	TerrainSettings*	terrainSettings;	// Globale Einstellungen zur Gernerierung der Welt
 	ChunkSettings*		chunkSettings;		// Chunkspezifische Einstellungen
-	Vertex_3PNU**		vertexBuffer;		// Adresse eines Pointer, der den Vertexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
+	Vertex**			vertexBuffer;		// Adresse eines Pointer, der den Vertexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
 	size_t*				n_verticies;		// Adresse einer Varibale, die die Zahl der Vertizen hält
 	uint32_t**			indexBuffer;		// Adresse eines Pointer, der den Indexbuffer hält. Speicher wird automatisch reserviert muss jedoch manuell mit delete[] oder _free() freigegeben werden
 	size_t*				n_indicies;			// Adresse einer Variable, die die Zahl der Indizen hält

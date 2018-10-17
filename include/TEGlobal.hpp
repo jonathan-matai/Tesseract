@@ -54,6 +54,8 @@ typedef bool teResult;
 #define TE_SAFE_RELEASE(x){if((x)){(x)->Release();(x)=NULL;}}
 #define TE_SAFE_DELETE_ARRAY(x){if((x)){delete[](x);(x)=NULL;}}
 #define TE_SAFE_MEMFREE(x){teFreeMemory(x); (x) = NULL;}
+#define TE_DEG_TO_RAD(x){(x * (TE_PI/180.0f))}
+#define TE_RAD_TO_DEG(x){(x * (180.0f/TE_PI))}
 
 //Andere Defines
 #define TE_OK_ERROR (MB_OK | MB_ICONERROR)
